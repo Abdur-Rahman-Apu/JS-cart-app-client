@@ -31,10 +31,6 @@ body {
   background-color: var(--primary-dark-color);
 }
 
-header {
-  height: 300px;
-}
-
 nav {
   width: 100%;
   height: 80px;
@@ -100,6 +96,43 @@ nav .right-side {
   color: var(--secondary-color);
 }
 
+/* banner design start  */
+
+.banner {
+  min-height: 300px;
+  background: linear-gradient(to right, #e8e1de, #cfc4c0);
+  margin: 12px 15px;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.banner p {
+  height: 120px;
+  margin-top: 50px;
+  font-family: var(--poppins-font);
+  /* font-size: 2.2rem; */
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  padding-left: 15px;
+  letter-spacing: 1px;
+}
+
+.banner img {
+  height: 100%;
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  .banner p {
+    font-size: 1.6rem;
+  }
+}
+
 @media (min-width: 600px) {
   .right-side .search {
     display: flex;
@@ -119,6 +152,16 @@ nav .right-side {
     border: none;
     outline: none;
     font-family: var(--poppins-font);
+  }
+
+  .banner p {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .banner p {
+    font-size: 2.5rem;
   }
 }
 
@@ -167,5 +210,17 @@ nav .right-side {
 
   .categories-list > div p:hover {
     color: #8e8a8a;
+  }
+
+  .banner {
+    flex-direction: row;
+  }
+  .banner img {
+    width: 50%;
+  }
+  .banner p {
+    margin-top: 0;
+    font-size: 2rem;
+    text-align: start;
   }
 }
