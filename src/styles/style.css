@@ -19,6 +19,7 @@ body {
 .btn {
   font-family: var(--poppins-font);
   font-weight: 500;
+  font-size: 1rem;
   padding: 10px 12px;
   border: none;
   border-radius: 5px;
@@ -86,7 +87,7 @@ nav .right-side {
 .cart-count {
   position: absolute;
   right: -15%;
-  bottom: 70%;
+  bottom: 80%;
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--secondary-color);
@@ -94,6 +95,7 @@ nav .right-side {
 
 .cart i {
   color: var(--secondary-color);
+  font-size: 1.2rem;
 }
 
 /* banner design start  */
@@ -125,6 +127,36 @@ nav .right-side {
 .banner img {
   height: 100%;
   width: 100%;
+}
+
+/* main part start  */
+
+main {
+  padding: 10px;
+}
+
+.category-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-icon {
+  color: var(--secondary-color);
+}
+
+.right-arrow-icon {
+  font-size: 0.8rem;
+  color: var(--secondary-color);
+}
+
+.selected-category-name {
+  background-color: var(--primary-color);
+  padding: 5px;
+  border-radius: 5px;
+  font-family: var(--poppins-font);
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 @media (min-width: 480px) {
