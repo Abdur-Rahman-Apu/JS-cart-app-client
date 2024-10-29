@@ -8,9 +8,12 @@
   --primary-color: #ccdbd8;
   --primary-dark-color: #afe6d4;
   --secondary-color: #b0a182;
+  --poppins-font: "Poppins", sans-serif;
 }
 
 .btn {
+  font-family: var(--poppins-font);
+  font-weight: 500;
   padding: 10px 12px;
   border: none;
   border-radius: 5px;
@@ -32,6 +35,7 @@ nav {
   height: 80px;
   display: flex;
   padding: 0 10px;
+  font-family: var(--poppins-font);
 }
 
 nav > div {
@@ -48,6 +52,7 @@ nav .right-side {
   height: 100%;
   display: flex;
   align-items: center;
+  gap: 3px;
 }
 
 .logo h1 span {
@@ -61,11 +66,6 @@ nav .right-side {
 .menus {
   display: none;
   /* flex-grow: 1; */
-}
-
-.categories {
-  display: flex;
-  gap: 3px;
 }
 
 .right-side .search {
@@ -85,11 +85,50 @@ nav .right-side {
 .cart-count {
   position: absolute;
   right: -15%;
-  bottom: 90%;
-  font-weight: bold;
+  bottom: 70%;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--secondary-color);
 }
 
 .cart i {
   color: var(--secondary-color);
+}
+
+@media (min-width: 600px) {
+  .right-side .search {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--primary-color);
+    padding: 15px 18px;
+    border-radius: 5px;
+  }
+
+  .search i {
+    color: rgb(121, 121, 119);
+  }
+
+  #search {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--poppins-font);
+  }
+}
+
+@media (min-width: 992px) {
+  .menus {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-evenly;
+    font-weight: 500;
+  }
+
+  .categories {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+  }
 }
