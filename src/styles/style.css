@@ -14,7 +14,9 @@
 
 body {
   max-width: 1200px;
+  min-height: 100vh;
   margin: 0 auto;
+  position: relative;
 }
 
 .btn {
@@ -83,6 +85,7 @@ nav .right-side {
 
 .cart {
   position: relative;
+  cursor: pointer;
 }
 
 .cart-count {
@@ -468,6 +471,69 @@ footer {
 
 .social-media i:hover {
   color: var(--primary-dark-color);
+}
+
+/* modal part start  */
+.modal-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(157, 153, 153, 0.427);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  width: 90%;
+  height: 90%;
+  background: linear-gradient(to right, #e8e1de, #cfc4c0);
+  border-radius: 5px;
+  padding: 35px;
+  font-family: var(--poppins-font);
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-weight: 600;
+  font-size: 1.35rem;
+}
+.close-icon {
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.close-icon:hover {
+  scale: 1.1;
+}
+
+.cart-empty-message-section {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cart-empty-img-section {
+  height: 60px;
+}
+
+.cart-empty-img-section img {
+  height: 100%;
+}
+
+.cart-empty-message {
+  font-weight: bold;
 }
 
 @media (min-width: 480px) {
