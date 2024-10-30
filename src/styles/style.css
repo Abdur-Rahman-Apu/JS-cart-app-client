@@ -529,6 +529,10 @@ input[type="checkbox"] {
     text-align: start;
   }
 
+  .category-sidebar {
+    padding: 15px;
+  }
+
   .category-sidebar-title i {
     display: inline-block;
   }
