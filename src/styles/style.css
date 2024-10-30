@@ -384,6 +384,7 @@ input[type="checkbox"] {
 footer {
   width: 100%;
   height: 400px;
+  margin-top: 20px;
 }
 
 .footer-upper-section {
@@ -398,7 +399,7 @@ footer {
 }
 
 .footer-upper-section-left-side img {
-  height: 35vw;
+  height: 28vw;
 }
 
 .footer-upper-section-left-side .title {
@@ -421,11 +422,12 @@ footer {
 
 .footer-upper-section-right-side {
   display: flex;
-  padding: 5px;
+  justify-content: space-between;
+  gap: 15px;
 }
 
 .footer-upper-section-right-side .link-label {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--primary-dark-color);
   margin-bottom: 5px;
 }
@@ -435,11 +437,46 @@ footer {
   color: var(--primary-color);
   font-family: var(--poppins-font);
   font-size: 0.8rem;
+  display: block;
+}
+
+.footer-bottom-section {
+  height: 20%;
+  background-color: #354b46;
+  color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-family: var(--poppins-font);
+}
+
+.copyright-text {
+  font-size: 0.9rem;
+}
+
+.social-media {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.15rem;
+}
+
+.social-media i {
+  cursor: pointer;
+}
+
+.social-media i:hover {
+  color: var(--primary-dark-color);
 }
 
 @media (min-width: 480px) {
   .banner p {
     font-size: 1.6rem;
+  }
+
+  .footer-upper-section-left-side img {
+    height: 22vw;
   }
 }
 
@@ -483,6 +520,10 @@ footer {
   .products-section {
     width: 75%;
   }
+
+  .footer-upper-section-left-side img {
+    height: 20vw;
+  }
 }
 
 @media (min-width: 768px) {
@@ -522,6 +563,24 @@ footer {
   .add-to-cart-btn {
     padding: 10px;
     font-size: 1rem;
+  }
+
+  .footer-upper-section,
+  .footer-bottom-section {
+    flex-direction: row;
+  }
+
+  .footer-upper-section-left-side,
+  .footer-upper-section-right-side {
+    width: 50%;
+    padding: 0 15px;
+  }
+
+  .footer-upper-section-right-side .link-label {
+    margin-bottom: 15px;
+  }
+  .footer-upper-section-right-side a {
+    margin-bottom: 8px;
   }
 }
 
@@ -594,11 +653,7 @@ footer {
     display: inline-block;
   }
 
-  /* .category-sidebar-title {
-    font-size: 1.1rem;
-  } */
-
-  /* .category-sidebar label {
-    font-size: 1.2rem;
-  } */
+  footer {
+    padding: 0 10px;
+  }
 }
