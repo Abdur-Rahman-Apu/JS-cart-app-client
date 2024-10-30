@@ -186,7 +186,7 @@ main {
   left: 0;
   background-color: var(--primary-color);
   padding: 5px;
-  /* display: none; */
+  display: none;
 }
 
 .sort-by-options > div {
@@ -332,6 +332,52 @@ input[type="checkbox"] {
 
 .add-to-cart-btn:hover {
   background-color: var(--secondary-color);
+}
+
+/* product loading card  */
+
+.product-loading {
+  animation: blinkAnim 1s linear infinite;
+}
+
+@keyframes blinkAnim {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.product-name-loading {
+  width: 100%;
+  height: 28%;
+  background-color: rgb(202, 199, 199);
+  border-radius: 5px;
+}
+
+.rating-and-price-section-loading {
+  width: 100%;
+  height: 28%;
+  background-color: rgb(202, 199, 199);
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.rating-loading,
+.price-loading {
+  width: 45%;
+  height: 80%;
+  background-color: rgb(215, 214, 214);
+  border-radius: 5px;
+}
+
+.btn-loading {
+  width: 100%;
+  height: 28%;
+  background-color: rgb(202, 199, 199);
+  border-radius: 5px;
+  border: none;
+  outline: none;
 }
 
 @media (min-width: 480px) {
