@@ -525,7 +525,7 @@ footer {
 }
 
 .cart-empty-img-section {
-  height: 60px;
+  height: 80px;
 }
 
 .cart-empty-img-section img {
@@ -645,8 +645,13 @@ footer {
   .footer-upper-section-right-side .link-label {
     margin-bottom: 15px;
   }
+
   .footer-upper-section-right-side a {
     margin-bottom: 8px;
+  }
+
+  .cart-empty-img-section {
+    height: 90px;
   }
 }
 
