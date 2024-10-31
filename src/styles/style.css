@@ -496,6 +496,14 @@ footer {
   overflow-y: auto;
 }
 
+.modal::-webkit-scrollbar {
+  width: 2px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-color);
+}
+
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -505,6 +513,12 @@ footer {
   font-weight: 600;
   font-size: 1.35rem;
 }
+
+.modal-title i {
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+}
+
 .close-icon {
   font-size: 1.3rem;
   cursor: pointer;
@@ -521,10 +535,12 @@ footer {
   align-items: center;
   gap: 10px;
   margin-top: 25px;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .cart-steps p:first-of-type {
-  font-weight: bold;
+  font-weight: 800;
 }
 
 .cart-empty-message-section {
@@ -567,7 +583,7 @@ footer {
 
 .cart-product-info {
   display: flex;
-  gap: 10px;
+  gap: 15px;
   padding: 5px;
   border-bottom: 1px solid var(--secondary-color);
 }
@@ -580,7 +596,12 @@ footer {
   width: 100%;
 }
 
+.cart-product-description div {
+  margin: 5px 0;
+}
+
 .cart-product-name {
+  font-size: 1.1rem;
   font-weight: 600;
 }
 
@@ -598,7 +619,8 @@ footer {
 
 .product-quantity {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: 15px;
 }
 
 .increment,
@@ -627,6 +649,7 @@ footer {
   cursor: pointer;
   box-shadow: 2px 2px 2px #b9b6b6;
   border-radius: 5px;
+  transition: 1s;
 }
 
 .order-summary {
@@ -639,7 +662,7 @@ footer {
 
 .order-summary-title {
   margin-bottom: 20px;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 600;
   text-transform: capitalize;
 }
@@ -654,20 +677,32 @@ footer {
   font-weight: 500;
 }
 
+.total,
+.total-amount,
+.order-calculation > .shipping > .shipping-amount {
+  font-weight: 800;
+}
+
 .checkout-btn {
   background-color: var(--secondary-color);
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 0.9rem;
+  padding: 8px 10px;
+  border-radius: 18px;
+  font-size: 0.95rem;
   text-align: center;
   font-weight: bold;
   box-shadow: 2px 2px 2px #b0a182;
   margin: 20px 0;
+  cursor: pointer;
+  transition: all 1s;
 }
 
 .order-summary p:last-of-type {
   font-weight: 500;
   text-align: center;
+}
+
+.order-summary > hr {
+  background-color: var(--secondary-color);
 }
 
 .delivery-time {
@@ -688,6 +723,19 @@ footer {
 
   .footer-upper-section-left-side img {
     height: 22vw;
+  }
+
+  .cart-product-name {
+    font-size: 1.3rem;
+  }
+
+  .order-summary-title {
+    font-size: 1.3rem;
+  }
+
+  .checkout-btn {
+    font-size: 1.05rem;
+    border-radius: 20px;
   }
 }
 
@@ -798,6 +846,22 @@ footer {
   .cart-empty-img-section {
     height: 90px;
   }
+
+  .modal {
+    padding: 25px 35px;
+  }
+
+  .modal-title {
+    font-size: 1.6rem;
+  }
+
+  .modal-title i {
+    font-size: 1.2rem;
+  }
+
+  .close-icon {
+    font-size: 1.5rem;
+  }
 }
 
 @media (min-width: 992px) {
@@ -871,5 +935,19 @@ footer {
 
   footer {
     padding: 0 10px;
+  }
+
+  .cart-section {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .cart-products,
+  .order-summary {
+    width: 48%;
+  }
+
+  .order-summary {
+    margin-top: 0;
   }
 }
