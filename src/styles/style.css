@@ -269,7 +269,8 @@ input[type="checkbox"] {
   width: 65%;
   height: 100%;
   /* background-color: green; */
-  display: grid;
+  /* display: grid; */
+  display: none;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 5px;
   margin: 0 5px;
@@ -392,6 +393,25 @@ input[type="checkbox"] {
   outline: none;
 }
 
+.no-product {
+  width: 100%;
+  font-family: var(--poppins-font);
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.no-product-img {
+  height: 90px;
+}
+
+.no-product-img img {
+  height: 100%;
+}
+
 /* footer part start  */
 footer {
   width: 100%;
@@ -504,6 +524,7 @@ footer {
   padding: 25px 15px;
   font-family: var(--poppins-font);
   overflow-y: auto;
+  box-shadow: 2px 2px 2px #a4a3a3;
 }
 
 .modal::-webkit-scrollbar {
@@ -741,6 +762,30 @@ footer {
   box-shadow: 2px 2px 2px rgb(185, 183, 183);
   opacity: 0;
   display: none;
+  /* animation: showAnim 2s linear; */
+}
+
+@keyframes showAnim {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
+  }
+}
+
+@keyframes hideAnim {
+  0% {
+    display: block;
+    opacity: 1;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+  }
 }
 
 @media (min-width: 480px) {

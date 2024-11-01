@@ -1,3 +1,6 @@
+import { fetchData } from "../lib/serverRequest/serverRequest";
+import showToast from "../lib/toast/showToast";
+import { baseUrl } from "../utils/config";
 import { addStyle, listenEvent, selectElm } from "../utils/dom.";
 
 class UI {
@@ -83,7 +86,23 @@ class UI {
     addStyle(modalContainer, { display: "none" });
   }
 
+  async #handleDisplayInitialProducts() {
+    try {
+      const data = await fetchData(`${baseUrl}/categories?_embed=products`);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+      showToast("Failed to Load Data");
+    }
+  }
+
   init() {
+    listenEvent(
+      document,
+      "DOMContentLoaded",
+      this.#handleDisplayInitialProducts.bind(this)
+    );
+
     const {
       body,
       cartContainer,
