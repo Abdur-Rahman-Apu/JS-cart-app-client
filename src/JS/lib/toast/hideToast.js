@@ -1,4 +1,4 @@
-import { selectElm } from "../../utils/dom.";
+import { addStyle, selectElm } from "../../utils/dom.";
 
 export default function hideToast() {
   const toastContainer = selectElm(".toast-section");

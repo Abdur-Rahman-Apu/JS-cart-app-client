@@ -1,7 +1,13 @@
 import { fetchData } from "../lib/serverRequest/serverRequest";
+import hideToast from "../lib/toast/hideToast";
 import showToast from "../lib/toast/showToast";
 import { baseUrl } from "../utils/config";
-import { addStyle, listenEvent, selectElm } from "../utils/dom.";
+import {
+  addStyle,
+  listenEvent,
+  selectElm,
+  selectMultiElm,
+} from "../utils/dom.";
 
 class UI {
   #loadSelector() {
@@ -13,6 +19,9 @@ class UI {
     const categoriesList = selectElm(".categories-list");
     const sortBySection = selectElm(".sort-by-section");
     const sortByOptions = selectElm(".sort-by-options");
+    const noProductSection = selectElm(".no-product");
+    const productContainer = selectElm(".products-section");
+    const loadingProductCards = selectMultiElm(".product-loading");
 
     return {
       body,
@@ -23,6 +32,9 @@ class UI {
       categoriesList,
       sortBySection,
       sortByOptions,
+      noProductSection,
+      loadingProductCards,
+      productContainer,
     };
   }
 
@@ -86,13 +98,39 @@ class UI {
     addStyle(modalContainer, { display: "none" });
   }
 
+  #displayEmptyProduct() {
+    const { noProductSection } = this.#loadSelector();
+    addStyle(noProductSection, { display: "flex" });
+  }
+
+  #displayToast(data) {
+    showToast(data);
+    hideToast();
+  }
+
+  #hideLoading() {
+    const { loadingProductCards } = this.#loadSelector();
+    loadingProductCards.forEach((loadingProductCard) =>
+      addStyle(loadingProductCard, { display: "none" })
+    );
+  }
+
+  #hideProductSection() {
+    const { productContainer } = this.#loadSelector();
+
+    addStyle(productContainer, { display: "none" });
+  }
+
   async #handleDisplayInitialProducts() {
     try {
       const data = await fetchData(`${baseUrl}/categories?_embed=products`);
       console.log(data);
     } catch (err) {
       console.log(err);
-      showToast("Failed to Load Data");
+      this.#hideLoading();
+      this.#hideProductSection();
+      this.#displayToast({ action: "failure", msg: "Failed to fetch data" });
+      this.#displayEmptyProduct();
     }
   }
 
