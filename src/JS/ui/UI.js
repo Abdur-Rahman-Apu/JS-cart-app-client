@@ -6,8 +6,38 @@ class UI {
     const modalContainer = selectElm(".modal-section");
     const cartContainer = selectElm(".cart");
     const cartCloseIcon = selectElm(".close-icon");
+    const categoriesMenu = selectElm(".categories");
+    const categoriesList = selectElm(".categories-list");
 
-    return { body, modalContainer, cartContainer, cartCloseIcon };
+    return {
+      body,
+      modalContainer,
+      cartContainer,
+      cartCloseIcon,
+      categoriesMenu,
+      categoriesList,
+    };
+  }
+
+  #handleOpenCategories(e) {
+    console.log("hover");
+    const { categoriesList } = this.#loadSelector();
+
+    addStyle(categoriesList, {
+      height: "auto",
+      overflow: "auto",
+      padding: "8px",
+    });
+  }
+  #handleCloseCategories(e) {
+    console.log("close");
+    const { categoriesList } = this.#loadSelector();
+
+    addStyle(categoriesList, {
+      height: "0",
+      overflow: "hidden",
+      padding: "0",
+    });
   }
 
   #handleOpenCart(e) {
@@ -35,7 +65,19 @@ class UI {
   }
 
   init() {
-    const { cartContainer, cartCloseIcon } = this.#loadSelector();
+    const { cartContainer, cartCloseIcon, categoriesMenu } =
+      this.#loadSelector();
+
+    listenEvent(
+      categoriesMenu,
+      "mouseover",
+      this.#handleOpenCategories.bind(this)
+    );
+    listenEvent(
+      categoriesMenu,
+      "mouseout",
+      this.#handleCloseCategories.bind(this)
+    );
 
     listenEvent(cartContainer, "click", this.#handleOpenCart.bind(this));
 

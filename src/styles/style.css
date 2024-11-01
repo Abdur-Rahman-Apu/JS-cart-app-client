@@ -908,16 +908,15 @@ footer {
 
   .categories-list {
     position: absolute;
-    top: 120%;
+    top: 100%;
     left: 0;
     height: 0;
     overflow: hidden;
-    background-color: var(--primary-color);
-    /* padding: 8px; */
     padding: 0;
+    background-color: var(--primary-color);
     font-size: 0.8rem;
     border-radius: 5px;
-    /* opacity: 0; */
+    box-shadow: 2px 2px 2px #2a2929;
   }
 
   .categories-list > div {
