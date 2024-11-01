@@ -8,6 +8,8 @@ class UI {
     const cartCloseIcon = selectElm(".close-icon");
     const categoriesMenu = selectElm(".categories");
     const categoriesList = selectElm(".categories-list");
+    const sortBySection = selectElm(".sort-by-section");
+    const sortByOptions = selectElm(".sort-by-options");
 
     return {
       body,
@@ -16,7 +18,18 @@ class UI {
       cartCloseIcon,
       categoriesMenu,
       categoriesList,
+      sortBySection,
+      sortByOptions,
     };
+  }
+
+  #handleBodyClicked(e) {
+    const { sortByOptions } = this.#loadSelector();
+    const isSortSection = e.target.dataset.section === "sort";
+
+    if (!isSortSection) {
+      addStyle(sortByOptions, { display: "none" });
+    }
   }
 
   #handleOpenCategories(e) {
@@ -29,6 +42,7 @@ class UI {
       padding: "8px",
     });
   }
+
   #handleCloseCategories(e) {
     console.log("close");
     const { categoriesList } = this.#loadSelector();
@@ -38,6 +52,11 @@ class UI {
       overflow: "hidden",
       padding: "0",
     });
+  }
+
+  #handleOpenSortOptions() {
+    const { sortByOptions } = this.#loadSelector();
+    addStyle(sortByOptions, { display: "block" });
   }
 
   #handleOpenCart(e) {
@@ -65,14 +84,22 @@ class UI {
   }
 
   init() {
-    const { cartContainer, cartCloseIcon, categoriesMenu } =
-      this.#loadSelector();
+    const {
+      body,
+      cartContainer,
+      cartCloseIcon,
+      categoriesMenu,
+      sortBySection,
+    } = this.#loadSelector();
+
+    listenEvent(body, "click", this.#handleBodyClicked.bind(this));
 
     listenEvent(
       categoriesMenu,
       "mouseover",
       this.#handleOpenCategories.bind(this)
     );
+
     listenEvent(
       categoriesMenu,
       "mouseout",
@@ -82,6 +109,8 @@ class UI {
     listenEvent(cartContainer, "click", this.#handleOpenCart.bind(this));
 
     listenEvent(cartCloseIcon, "click", this.#handleCloseCart.bind(this));
+
+    listenEvent(sortBySection, "click", this.#handleOpenSortOptions.bind(this));
   }
 }
 

@@ -197,6 +197,7 @@ main {
   left: 0;
   background-color: var(--primary-color);
   padding: 5px;
+  box-shadow: 2px 2px 2px #4a4a4a;
   display: none;
 }
 
