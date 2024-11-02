@@ -19,6 +19,7 @@ class UI {
     const cartCloseIcon = selectElm(".close-icon");
     const categoriesMenu = selectElm(".categories");
     const categoriesList = selectElm(".categories-list");
+    const categorySidebar = selectElm(".category-sidebar");
     const searchInput = selectElm("#search");
     const sortBySection = selectElm(".sort-by-section");
     const sortByName = selectElm(".sort-by-name");
@@ -41,6 +42,7 @@ class UI {
       productContainer,
       sortByName,
       searchInput,
+      categorySidebar,
     };
   }
 
@@ -255,6 +257,87 @@ class UI {
     }
   }
 
+  #handleAddCategoriesQueryParams(searchParams) {}
+  #handleRemoveCategoriesQueryParams() {}
+
+  #handleCategoryQueryParams({ newQueryValue, action }) {
+    // const urlSearchParams = new URLSearchParams();
+
+    let url = new URL(window.location.href);
+
+    console.log(url);
+
+    // console.log(urlSearchParams.get("categories"));
+
+    const existingParams = url.searchParams.has("query");
+
+    console.log(existingParams);
+
+    let searchParams;
+
+    if (!existingParams && action === "add") {
+      searchParams = `categories?query=${newQueryValue}`;
+      window.history.replaceState(null, document.title, searchParams);
+    }
+
+    if (existingParams) {
+      const oldQueryValue = url.searchParams.get("query");
+      if (action === "add") {
+        url.searchParams.set("query", oldQueryValue + "-" + newQueryValue);
+      }
+      if (action === "delete") {
+        console.log("delete");
+        console.log(oldQueryValue);
+        const allQueries = oldQueryValue.split("-");
+        console.log(allQueries);
+        console.log(newQueryValue);
+        const newQueryValues = allQueries.filter(
+          (query) => query !== newQueryValue
+        );
+        console.log(newQueryValues, "new query value");
+
+        if (!newQueryValues.length) {
+          console.log("came here");
+          url.searchParams.delete("query");
+          url.pathname = "";
+
+          console.log(url);
+        }
+
+        if (Array.isArray(newQueryValues) && newQueryValues.length) {
+          url.searchParams.set("query", newQueryValues.join("-"));
+        } else if (!Array.isArray(newQueryValues) && newQueryValues.length) {
+          url.searchParams.set("query", newQueryValues);
+        }
+      }
+
+      history.pushState({}, "", url.href);
+    }
+  }
+
+  #handleCategoryCheckboxClicked(e) {
+    console.dir(e.target);
+    console.log(e.target.type);
+    if (e.target.type === "checkbox") {
+      console.log(e.target.value);
+      console.log(e.target.checked);
+      const categoryName = e.target.value;
+
+      if (e.target.checked) {
+        this.#handleCategoryQueryParams({
+          newQueryValue: categoryName,
+          action: "add",
+        });
+      }
+      if (!e.target.checked) {
+        this.#handleCategoryQueryParams({
+          newQueryValue: categoryName,
+          action: "delete",
+        });
+      }
+    }
+  }
+
   init() {
     listenEvent(
       document,
@@ -270,6 +353,7 @@ class UI {
       sortBySection,
       sortByOptions,
       searchInput,
+      categorySidebar,
     } = this.#loadSelector();
 
     listenEvent(body, "click", this.#handleBodyClicked.bind(this));
@@ -284,6 +368,12 @@ class UI {
       categoriesMenu,
       "mouseout",
       this.#handleCloseCategories.bind(this)
+    );
+
+    listenEvent(
+      categorySidebar,
+      "click",
+      this.#handleCategoryCheckboxClicked.bind(this)
     );
 
     listenEvent(searchInput, "keyup", this.#handleSearchProduct.bind(this));
