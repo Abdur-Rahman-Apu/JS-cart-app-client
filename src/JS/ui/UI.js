@@ -1,9 +1,12 @@
+import productCard from "../lib/product/productCard";
 import { fetchData } from "../lib/serverRequest/serverRequest";
 import hideToast from "../lib/toast/hideToast";
 import showToast from "../lib/toast/showToast";
+import { data } from "../productStore/ProductStore";
 import { baseUrl } from "../utils/config";
 import {
   addStyle,
+  insertAdjHtml,
   listenEvent,
   selectElm,
   selectMultiElm,
@@ -121,16 +124,51 @@ class UI {
     addStyle(productContainer, { display: "none" });
   }
 
+  #showProductEmptySection({ toastMsg }) {
+    this.#hideLoading();
+    this.#hideProductSection();
+    this.#displayToast({ action: "failure", msg: toastMsg });
+    this.#displayEmptyProduct();
+  }
+
+  #showProducts(products) {
+    const { productContainer } = this.#loadSelector();
+
+    const productsHtml = products
+      .map((product) => productCard(product))
+      .join(" ");
+
+    insertAdjHtml(productContainer, productsHtml);
+  }
+
+  #getAllProducts(receiveData) {
+    let products = [];
+    receiveData.forEach((item) => {
+      products = [...products, ...item?.products];
+    });
+
+    return products;
+  }
+
   async #handleDisplayInitialProducts() {
     try {
-      const data = await fetchData(`${baseUrl}/categories?_embed=products`);
-      console.log(data);
+      const receiveData = await fetchData(
+        `${baseUrl}/categories?_embed=products`
+      );
+      console.log(receiveData);
+
+      if (receiveData.length) {
+        data.products = receiveData;
+        this.#hideLoading();
+        const products = this.#getAllProducts(receiveData);
+        this.#showProducts(products);
+      } else {
+        this.#showProductEmptySection({ toastMsg: "No products found" });
+      }
+      data;
     } catch (err) {
       console.log(err);
-      this.#hideLoading();
-      this.#hideProductSection();
-      this.#displayToast({ action: "failure", msg: "Failed to fetch data" });
-      this.#displayEmptyProduct();
+      this.#showProductEmptySection({ toastMsg: "Failed to fetch data" });
     }
   }
 
