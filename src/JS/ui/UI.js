@@ -21,6 +21,7 @@ class UI {
     const categoriesMenu = selectElm(".categories");
     const categoriesList = selectElm(".categories-list");
     const sortBySection = selectElm(".sort-by-section");
+    const sortByName = selectElm(".sort-by-name");
     const sortByOptions = selectElm(".sort-by-options");
     const noProductSection = selectElm(".no-product");
     const productContainer = selectElm(".products-section");
@@ -38,6 +39,7 @@ class UI {
       noProductSection,
       loadingProductCards,
       productContainer,
+      sortByName,
     };
   }
 
@@ -150,6 +152,11 @@ class UI {
     insertAdjHtml(productContainer, productsHtml);
   }
 
+  #displayProductsIntoTheUI() {
+    const products = data.displayProducts;
+    this.#showProducts(products);
+  }
+
   #getAllProducts(receiveData) {
     let products = [];
     receiveData.forEach((item) => {
@@ -168,9 +175,9 @@ class UI {
 
       if (receiveData?.length) {
         data.allProducts = receiveData;
+        data.displayProducts = this.#getAllProducts(receiveData);
         this.#hideLoading();
-        const products = this.#getAllProducts(receiveData);
-        this.#showProducts(products);
+        this.#displayProductsIntoTheUI();
       } else {
         this.#showProductEmptySection({ toastMsg: "No products found" });
       }
@@ -178,6 +185,38 @@ class UI {
     } catch (err) {
       console.log(err);
       this.#showProductEmptySection({ toastMsg: "Failed to fetch data" });
+    }
+  }
+
+  #sortProductsInAsc() {
+    const products = data.displayProducts;
+    products.sort((a, b) => a.price - b.price);
+    data.displayProducts = products;
+    this.#displayProductsIntoTheUI();
+  }
+  #sortProductsInDesc() {
+    const products = data.displayProducts;
+    products.sort((a, b) => b.price - a.price);
+    data.displayProducts = products;
+
+    this.#displayProductsIntoTheUI();
+  }
+
+  #handleSortProducts(e) {
+    const { sortByName } = this.#loadSelector();
+    console.log(e.target.innerText);
+    const targetedWay = e.target.innerText;
+    const sortWay =
+      targetedWay.toLowerCase() === "low to high" ? "asc" : "desc";
+
+    if (sortWay === "asc") {
+      this.#sortProductsInAsc();
+      sortByName.innerText = targetedWay;
+    }
+
+    if (sortWay === "desc") {
+      this.#sortProductsInDesc();
+      sortByName.innerText = targetedWay;
     }
   }
 
@@ -194,6 +233,7 @@ class UI {
       cartCloseIcon,
       categoriesMenu,
       sortBySection,
+      sortByOptions,
     } = this.#loadSelector();
 
     listenEvent(body, "click", this.#handleBodyClicked.bind(this));
@@ -215,6 +255,8 @@ class UI {
     listenEvent(cartCloseIcon, "click", this.#handleCloseCart.bind(this));
 
     listenEvent(sortBySection, "click", this.#handleOpenSortOptions.bind(this));
+
+    listenEvent(sortByOptions, "click", this.#handleSortProducts.bind(this));
   }
 }
 
