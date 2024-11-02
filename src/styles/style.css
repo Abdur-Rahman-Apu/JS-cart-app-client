@@ -272,7 +272,7 @@ input[type="checkbox"] {
   display: grid;
   /* display: none; */
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  grid-auto-rows: minmax(300px, auto);
+  grid-auto-rows: 300px;
   gap: 15px;
   margin: 0 5px;
   overflow-y: auto;
@@ -886,7 +886,7 @@ footer {
   }
 
   .products-section {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
 
   .product-name {

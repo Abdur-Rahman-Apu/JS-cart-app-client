@@ -6,7 +6,6 @@ import { data } from "../productStore/ProductStore";
 import { baseUrl } from "../utils/config";
 import {
   addStyle,
-  insertAdjHtml,
   listenEvent,
   selectElm,
   selectMultiElm,
@@ -20,6 +19,7 @@ class UI {
     const cartCloseIcon = selectElm(".close-icon");
     const categoriesMenu = selectElm(".categories");
     const categoriesList = selectElm(".categories-list");
+    const searchInput = selectElm("#search");
     const sortBySection = selectElm(".sort-by-section");
     const sortByName = selectElm(".sort-by-name");
     const sortByOptions = selectElm(".sort-by-options");
@@ -40,6 +40,7 @@ class UI {
       loadingProductCards,
       productContainer,
       sortByName,
+      searchInput,
     };
   }
 
@@ -149,7 +150,7 @@ class UI {
       .map((product) => productCard(product))
       .join(" ");
 
-    insertAdjHtml(productContainer, productsHtml);
+    productContainer.innerHTML = productsHtml;
   }
 
   #displayProductsIntoTheUI() {
@@ -220,6 +221,40 @@ class UI {
     }
   }
 
+  #filteredSearchProducts(searchValue) {
+    const allProducts = data.displayProducts;
+
+    return allProducts.filter((product) =>
+      product.name.toLowerCase().includes(searchValue)
+    );
+  }
+
+  #displaySearchProductsIntoUI(products) {
+    if (products.length) {
+      this.#showProducts(products);
+    } else {
+      this.#showProductEmptySection({ toastMsg: "No products found" });
+    }
+  }
+
+  #handleSearchProduct(e) {
+    const { productContainer, noProductSection } = this.#loadSelector();
+    console.log("change value");
+    const searchValue = e.target.value;
+
+    if (searchValue) {
+      addStyle(productContainer, { display: "grid" });
+      addStyle(noProductSection, { display: "none" });
+      const filteredProducts = this.#filteredSearchProducts(
+        searchValue?.toLowerCase()
+      );
+
+      this.#displaySearchProductsIntoUI(filteredProducts);
+    } else {
+      this.#displayProductsIntoTheUI();
+    }
+  }
+
   init() {
     listenEvent(
       document,
@@ -234,6 +269,7 @@ class UI {
       categoriesMenu,
       sortBySection,
       sortByOptions,
+      searchInput,
     } = this.#loadSelector();
 
     listenEvent(body, "click", this.#handleBodyClicked.bind(this));
@@ -249,6 +285,8 @@ class UI {
       "mouseout",
       this.#handleCloseCategories.bind(this)
     );
+
+    listenEvent(searchInput, "keyup", this.#handleSearchProduct.bind(this));
 
     listenEvent(cartContainer, "click", this.#handleOpenCart.bind(this));
 
