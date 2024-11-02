@@ -338,6 +338,48 @@ class UI {
     }
   }
 
+  #handleCategoryMenus(e) {
+    console.log(e.target.tagName);
+
+    const tagName = e.target.tagName.toLowerCase();
+    let category;
+    let pTag;
+    if (tagName === "div") {
+      pTag = e.target.children[1];
+      pTag.dataset.add = true;
+      category = e.target.children[1].innerText;
+      console.log(category);
+    }
+
+    if (tagName === "p") {
+      pTag = e.target;
+      category = e.target.innerText;
+      console.log(category);
+    }
+
+    if (tagName === "img") {
+      pTag = e.target.nextElementSibling;
+      category = e.target.nextElementSibling.innerText;
+      console.log(category);
+    }
+
+    const isExist = Boolean(pTag.dataset.add);
+
+    if (isExist) {
+      this.#handleCategoryQueryParams({
+        newQueryValue: category,
+        action: "delete",
+      });
+      pTag.dataset.add = false;
+    } else {
+      this.#handleCategoryQueryParams({
+        newQueryValue: category,
+        action: "add",
+      });
+      pTag.dataset.add = true;
+    }
+  }
+
   init() {
     listenEvent(
       document,
@@ -354,6 +396,7 @@ class UI {
       sortByOptions,
       searchInput,
       categorySidebar,
+      categoriesList,
     } = this.#loadSelector();
 
     listenEvent(body, "click", this.#handleBodyClicked.bind(this));
@@ -369,6 +412,9 @@ class UI {
       "mouseout",
       this.#handleCloseCategories.bind(this)
     );
+
+    console.log(categoriesList);
+    listenEvent(categoriesList, "click", this.#handleCategoryMenus.bind(this));
 
     listenEvent(
       categorySidebar,
