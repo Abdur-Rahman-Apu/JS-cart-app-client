@@ -42,11 +42,12 @@ class UI {
   }
 
   #handleBodyClicked(e) {
-    const { sortByOptions } = this.#loadSelector();
+    const { sortByOptions, sortBySection } = this.#loadSelector();
     const isSortSection = e.target.dataset.section === "sort";
 
     if (!isSortSection) {
       addStyle(sortByOptions, { display: "none" });
+      sortBySection.dataset.visible = false;
     }
   }
 
@@ -73,8 +74,16 @@ class UI {
   }
 
   #handleOpenSortOptions() {
-    const { sortByOptions } = this.#loadSelector();
-    addStyle(sortByOptions, { display: "block" });
+    const { sortByOptions, sortBySection } = this.#loadSelector();
+
+    console.log(sortBySection.dataset);
+    if (sortBySection.dataset.visible === "true") {
+      addStyle(sortByOptions, { display: "none" });
+      sortBySection.dataset.visible = false;
+    } else {
+      addStyle(sortByOptions, { display: "block" });
+      sortBySection.dataset.visible = true;
+    }
   }
 
   #handleOpenCart(e) {
@@ -157,8 +166,8 @@ class UI {
       );
       console.log(receiveData);
 
-      if (receiveData.length) {
-        data.products = receiveData;
+      if (receiveData?.length) {
+        data.allProducts = receiveData;
         this.#hideLoading();
         const products = this.#getAllProducts(receiveData);
         this.#showProducts(products);

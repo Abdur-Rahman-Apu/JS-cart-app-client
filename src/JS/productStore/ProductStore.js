@@ -1,12 +1,21 @@
 class ProductStore {
-  #products;
+  #allProducts;
+  #displayProducts;
 
-  set products(data) {
-    this.#products = data;
+  set allProducts(data) {
+    this.#allProducts = data;
   }
 
-  get products() {
-    return this.#products;
+  get allProducts() {
+    return this.#allProducts;
+  }
+
+  set displayProducts(data) {
+    this.#displayProducts = data;
+  }
+
+  get displayProducts() {
+    return this.#displayProducts;
   }
 }
 
