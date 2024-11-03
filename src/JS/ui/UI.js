@@ -1,8 +1,10 @@
+import { cart } from "../cart/Cart";
 import productCard from "../lib/product/productCard";
 import { fetchData } from "../lib/serverRequest/serverRequest";
 import hideToast from "../lib/toast/hideToast";
 import showToast from "../lib/toast/showToast";
 import { data } from "../productStore/ProductStore";
+import { storage } from "../storage/Storage";
 import { baseUrl } from "../utils/config";
 import {
   addStyle,
@@ -16,6 +18,7 @@ class UI {
     const body = selectElm("body");
     const modalContainer = selectElm(".modal-section");
     const cartContainer = selectElm(".cart");
+    const cartCount = selectElm(".cart-count");
     const cartCloseIcon = selectElm(".close-icon");
     const categoriesMenu = selectElm(".categories");
     const categoriesList = selectElm(".categories-list");
@@ -51,6 +54,7 @@ class UI {
       clothesCheckBox,
       electronicsCheckBox,
       furnitureCheckBox,
+      cartCount,
     };
   }
 
@@ -182,12 +186,27 @@ class UI {
     return url.searchParams.get("query");
   }
 
+  #handlePreviousCartData() {
+    const previousCartData = storage.getFromTheStorage();
+
+    console.log(previousCartData, "previous cart data");
+
+    if (previousCartData?.length) {
+      const { cartCount } = this.#loadSelector();
+      cart.cartData = previousCartData;
+
+      cartCount.innerText = cart.cartData.length;
+    }
+  }
+
   async #handleDisplayInitialProducts() {
     try {
       const receiveData = await fetchData(
         `${baseUrl}/categories?_embed=products`
       );
       console.log(receiveData);
+
+      this.#handlePreviousCartData();
 
       if (receiveData?.length) {
         data.allProducts = receiveData;
@@ -208,7 +227,6 @@ class UI {
       } else {
         this.#showProductEmptySection({ toastMsg: "No products found" });
       }
-      data;
     } catch (err) {
       console.log(err);
       this.#showProductEmptySection({ toastMsg: "Failed to fetch data" });
@@ -500,6 +518,21 @@ class UI {
     }
   }
 
+  #handleAddToCart(e) {
+    console.log("clicked");
+    console.log(e.target);
+
+    if (e.target.tagName.toLowerCase() === "button") {
+      const { cartCount } = this.#loadSelector();
+      console.log("here");
+      const productId = e.target.dataset.id;
+      cart.cartData = productId;
+      cartCount.innerText = cart.cartData.length;
+      storage.storeIntoStorage(cart.cartData);
+      e.target.setAttribute("disabled", "disabled");
+    }
+  }
+
   init() {
     listenEvent(
       document,
@@ -517,6 +550,7 @@ class UI {
       searchInput,
       categorySidebar,
       categoriesList,
+      productContainer,
     } = this.#loadSelector();
 
     listenEvent(body, "click", this.#handleBodyClicked.bind(this));
@@ -551,6 +585,8 @@ class UI {
     listenEvent(sortBySection, "click", this.#handleOpenSortOptions.bind(this));
 
     listenEvent(sortByOptions, "click", this.#handleSortProducts.bind(this));
+
+    listenEvent(productContainer, "click", this.#handleAddToCart.bind(this));
   }
 }
 

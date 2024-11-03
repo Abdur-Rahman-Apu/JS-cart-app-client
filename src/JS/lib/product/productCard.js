@@ -1,4 +1,11 @@
+import { cart } from "../../cart/Cart";
+
 export default function productCard(product) {
+  console.log(cart.cartData);
+  console.log(product?.id);
+  const cartData = cart.cartData;
+  console.log(cartData);
+  console.log(product?.id);
   return `<div class="product">
       <div class="product-img">
         <img
@@ -21,7 +28,12 @@ export default function productCard(product) {
           </p>
         </div>
 
-        <button class="add-to-cart-btn btn" data-id="${product?.id}">Add to cart</button>
+        <button class="add-to-cart-btn btn" data-id="${product?.id}" 
+        ${
+          cart.cartData.length > 0
+            ? cart.cartData.includes(product?.id) && (disabled = "disabled")
+            : ""
+        }>Add to cart</button>
       </div>
     </div>`;
 }
