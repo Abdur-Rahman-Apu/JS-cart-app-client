@@ -233,9 +233,15 @@ class UI {
     const { sortByName } = this.#loadSelector();
     console.log(e.target.innerText);
     const targetedWay = e.target.innerText;
+    console.log(targetedWay, "targeted way");
     const sortWay =
-      targetedWay.toLowerCase() === "low to high" ? "asc" : "desc";
+      targetedWay.toLowerCase() === "low to high"
+        ? "asc"
+        : targetedWay.toLowerCase() === "high to low"
+        ? "desc"
+        : null;
 
+    console.log(sortWay, "sortway");
     if (sortWay === "asc") {
       this.#sortProductsInAsc();
       sortByName.innerText = targetedWay;
