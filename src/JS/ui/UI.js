@@ -257,9 +257,6 @@ class UI {
     }
   }
 
-  #handleAddCategoriesQueryParams(searchParams) {}
-  #handleRemoveCategoriesQueryParams() {}
-
   #handleCategoryQueryParams({ newQueryValue, action }) {
     // const urlSearchParams = new URLSearchParams();
 
@@ -363,9 +360,11 @@ class UI {
       console.log(category);
     }
 
-    const isExist = Boolean(pTag.dataset.add);
+    const isExist = pTag.dataset.add;
 
-    if (isExist) {
+    console.log(isExist, "in params exist");
+
+    if (isExist === "true") {
       this.#handleCategoryQueryParams({
         newQueryValue: category,
         action: "delete",
