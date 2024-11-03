@@ -20,6 +20,10 @@ class UI {
     const categoriesMenu = selectElm(".categories");
     const categoriesList = selectElm(".categories-list");
     const categorySidebar = selectElm(".category-sidebar");
+    const shoesCheckBox = selectElm("#shoes");
+    const clothesCheckBox = selectElm("#clothes");
+    const electronicsCheckBox = selectElm("#electronics");
+    const furnitureCheckBox = selectElm("#furniture");
     const searchInput = selectElm("#search");
     const sortBySection = selectElm(".sort-by-section");
     const sortByName = selectElm(".sort-by-name");
@@ -43,6 +47,10 @@ class UI {
       sortByName,
       searchInput,
       categorySidebar,
+      shoesCheckBox,
+      clothesCheckBox,
+      electronicsCheckBox,
+      furnitureCheckBox,
     };
   }
 
@@ -383,12 +391,45 @@ class UI {
     }
   }
 
+  #toggleCategoryChecked({ category, action }) {
+    const {
+      clothesCheckBox,
+      shoesCheckBox,
+      furnitureCheckBox,
+      electronicsCheckBox,
+    } = this.#loadSelector();
+
+    switch (category) {
+      case "Clothes":
+        action === "add"
+          ? (clothesCheckBox.checked = true)
+          : (clothesCheckBox.checked = false);
+        break;
+      case "Shoes":
+        action === "add"
+          ? (shoesCheckBox.checked = true)
+          : (shoesCheckBox.checked = false);
+        break;
+      case "Electronics":
+        action === "add"
+          ? (electronicsCheckBox.checked = true)
+          : (electronicsCheckBox.checked = false);
+        break;
+      case "Furniture":
+        action === "add"
+          ? (furnitureCheckBox.checked = true)
+          : (furnitureCheckBox.checked = false);
+        break;
+    }
+  }
+
   #handleCategoryMenus(e) {
     console.log(e.target.tagName);
 
     const tagName = e.target.tagName.toLowerCase();
     let category;
     let pTag;
+
     if (tagName === "div") {
       pTag = e.target.children[1];
       pTag.dataset.add = true;
@@ -418,12 +459,16 @@ class UI {
         action: "delete",
       });
       pTag.dataset.add = false;
+
+      this.#toggleCategoryChecked({ category, action: "delete" });
     } else {
       this.#handleCategoryQueryParams({
         newQueryValue: category,
         action: "add",
       });
       pTag.dataset.add = true;
+
+      this.#toggleCategoryChecked({ category, action: "add" });
     }
   }
 
