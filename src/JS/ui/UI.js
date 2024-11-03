@@ -257,7 +257,41 @@ class UI {
     }
   }
 
+  #DisplayCategoryWiseProducts(categoryNames) {
+    console.log(categoryNames, "category names");
+    const allProducts = data.allProducts;
+
+    console.log(allProducts, "all products");
+
+    const filteredCategories = allProducts.filter((category) =>
+      categoryNames.includes(category.name)
+    );
+
+    console.log(filteredCategories, "filtered categories");
+    let products = [];
+    filteredCategories.forEach(
+      (item) => (products = [...products, ...item.products])
+    );
+
+    console.log(products, "products");
+
+    data.displayProducts = products;
+
+    this.#displayProductsIntoTheUI();
+  }
+
+  #handleDisplayCategoryWiseProduct({ category, type }) {
+    if (type === "single") {
+      this.#DisplayCategoryWiseProducts([category]);
+    } else {
+      this.#DisplayCategoryWiseProducts(category.split("-"));
+    }
+  }
+
   #handleCategoryQueryParams({ newQueryValue, action }) {
+    const { searchInput } = this.#loadSelector();
+
+    searchInput.value = "";
     // const urlSearchParams = new URLSearchParams();
 
     let url = new URL(window.location.href);
@@ -275,13 +309,24 @@ class UI {
     if (!existingParams && action === "add") {
       searchParams = `categories?query=${newQueryValue}`;
       window.history.replaceState(null, document.title, searchParams);
+
+      this.#handleDisplayCategoryWiseProduct({
+        category: newQueryValue,
+        type: "single",
+      });
     }
 
     if (existingParams) {
       const oldQueryValue = url.searchParams.get("query");
       if (action === "add") {
         url.searchParams.set("query", oldQueryValue + "-" + newQueryValue);
+
+        this.#handleDisplayCategoryWiseProduct({
+          category: oldQueryValue + "-" + newQueryValue,
+          type: "multi",
+        });
       }
+
       if (action === "delete") {
         console.log("delete");
         console.log(oldQueryValue);
