@@ -342,14 +342,17 @@ class UI {
           console.log("came here");
           url.searchParams.delete("query");
           url.pathname = "";
-
           console.log(url);
+          data.displayProducts = this.#getAllProducts(data.allProducts);
+          this.#displayProductsIntoTheUI();
         }
 
         if (Array.isArray(newQueryValues) && newQueryValues.length) {
           url.searchParams.set("query", newQueryValues.join("-"));
+          this.#DisplayCategoryWiseProducts(newQueryValues);
         } else if (!Array.isArray(newQueryValues) && newQueryValues.length) {
           url.searchParams.set("query", newQueryValues);
+          this.#DisplayCategoryWiseProducts([newQueryValues]);
         }
       }
 
