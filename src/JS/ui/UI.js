@@ -177,6 +177,11 @@ class UI {
     return products;
   }
 
+  #getCategoryQueryParams() {
+    const url = new URL(window.location.href);
+    return url.searchParams.get("query");
+  }
+
   async #handleDisplayInitialProducts() {
     try {
       const receiveData = await fetchData(
@@ -186,9 +191,20 @@ class UI {
 
       if (receiveData?.length) {
         data.allProducts = receiveData;
-        data.displayProducts = this.#getAllProducts(receiveData);
+
+        const categoriesInTheUrl = this.#getCategoryQueryParams()?.split("-");
+
         this.#hideLoading();
-        this.#displayProductsIntoTheUI();
+
+        if (categoriesInTheUrl && categoriesInTheUrl?.length) {
+          categoriesInTheUrl.forEach((category) =>
+            this.#toggleCategoryChecked({ category, action: "add" })
+          );
+          this.#DisplayCategoryWiseProducts(categoriesInTheUrl);
+        } else {
+          data.displayProducts = this.#getAllProducts(receiveData);
+          this.#displayProductsIntoTheUI();
+        }
       } else {
         this.#showProductEmptySection({ toastMsg: "No products found" });
       }
@@ -302,7 +318,7 @@ class UI {
     searchInput.value = "";
     // const urlSearchParams = new URLSearchParams();
 
-    let url = new URL(window.location.href);
+    const url = new URL(window.location.href);
 
     console.log(url);
 
@@ -423,42 +439,48 @@ class UI {
     }
   }
 
+  #checkCategoryExistenceInURL(category) {
+    const queryValues = this.#getCategoryQueryParams();
+
+    return queryValues
+      ? queryValues?.split("-")?.includes(category)
+      : queryValues;
+  }
+
   #handleCategoryMenus(e) {
     console.log(e.target.tagName);
 
     const tagName = e.target.tagName.toLowerCase();
     let category;
-    let pTag;
 
     if (tagName === "div") {
-      pTag = e.target.children[1];
-      pTag.dataset.add = true;
-      category = e.target.children[1].innerText;
+      const pTag = e.target.children[1];
+      category = pTag.innerText;
       console.log(category);
     }
 
     if (tagName === "p") {
-      pTag = e.target;
-      category = e.target.innerText;
+      const pTag = e.target;
+      category = pTag.innerText;
       console.log(category);
     }
 
     if (tagName === "img") {
-      pTag = e.target.nextElementSibling;
-      category = e.target.nextElementSibling.innerText;
+      const pTag = e.target.nextElementSibling;
+      category = pTag.innerText;
       console.log(category);
     }
 
-    const isExist = pTag.dataset.add;
+    const isExist = this.#checkCategoryExistenceInURL(category);
 
     console.log(isExist, "in params exist");
 
-    if (isExist === "true") {
+    if (isExist) {
       this.#handleCategoryQueryParams({
         newQueryValue: category,
         action: "delete",
       });
-      pTag.dataset.add = false;
+      //   pTag.dataset.add = false;
 
       this.#toggleCategoryChecked({ category, action: "delete" });
     } else {
@@ -466,7 +488,7 @@ class UI {
         newQueryValue: category,
         action: "add",
       });
-      pTag.dataset.add = true;
+      //   pTag.dataset.add = true;
 
       this.#toggleCategoryChecked({ category, action: "add" });
     }
