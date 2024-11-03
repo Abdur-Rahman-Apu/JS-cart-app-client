@@ -169,7 +169,7 @@ main {
 
 .selected-category-name {
   background-color: var(--primary-color);
-  padding: 5px;
+  padding: 5px 10px;
   border-radius: 5px;
   font-family: var(--poppins-font);
   font-size: 0.8rem;
@@ -869,7 +869,7 @@ footer {
   }
 
   .selected-category-name {
-    font-size: 1rem;
+    font-size: 0.875rem;
   }
 
   .sort-by-section,
