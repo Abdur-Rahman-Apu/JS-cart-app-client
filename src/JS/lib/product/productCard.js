@@ -1,5 +1,11 @@
 import { cart } from "../../cart/Cart";
 
+const isExistIntoCart = (id) => {
+  const isFind = cart.cartData.findIndex((product) => product.id === id);
+  console.log(isFind, "isFind");
+  return isFind !== -1 ? true : false;
+};
+
 export default function productCard(product) {
   console.log(cart.cartData);
   console.log(product?.id);
@@ -31,7 +37,7 @@ export default function productCard(product) {
         <button class="add-to-cart-btn btn" data-id="${product?.id}" 
         ${
           cart.cartData.length > 0
-            ? cart.cartData.includes(product?.id) && (disabled = "disabled")
+            ? isExistIntoCart(product?.id.toString()) && (disabled = "disabled")
             : ""
         }>Add to cart</button>
       </div>

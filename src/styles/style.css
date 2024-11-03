@@ -578,7 +578,8 @@ footer {
 
 .cart-empty-message-section {
   height: 200px;
-  display: flex;
+  /* display: flex; */
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -601,6 +602,7 @@ footer {
 
 .cart-section {
   display: flex;
+  /* display: none; */
   flex-direction: column;
   margin: 35px 0;
 }
@@ -687,7 +689,7 @@ footer {
 
 .order-summary {
   margin-top: 30px;
-  background-color: #e0d3c3;
+  background-color: #dcdad8;
   padding: 15px;
   border-radius: 10px;
   font-family: var(--poppins-font);

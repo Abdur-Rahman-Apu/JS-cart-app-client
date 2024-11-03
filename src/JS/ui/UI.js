@@ -34,6 +34,8 @@ class UI {
     const noProductSection = selectElm(".no-product");
     const productContainer = selectElm(".products-section");
     const loadingProductCards = selectMultiElm(".product-loading");
+    const cartEmptyMsgSection = selectElm(".cart-empty-message-section");
+    const cartProductSection = selectElm(".cart-section");
 
     return {
       body,
@@ -55,6 +57,8 @@ class UI {
       electronicsCheckBox,
       furnitureCheckBox,
       cartCount,
+      cartEmptyMsgSection,
+      cartProductSection,
     };
   }
 
@@ -103,6 +107,19 @@ class UI {
     }
   }
 
+  #displayCartProduct() {
+    const { cartEmptyMsgSection, cartProductSection } = this.#loadSelector();
+    const cartData = cart.cartData;
+
+    if (cartData.length) {
+      addStyle(cartEmptyMsgSection, { display: "none" });
+      addStyle(cartProductSection, { display: "flex" });
+    } else {
+      addStyle(cartProductSection, { display: "none" });
+      addStyle(cartEmptyMsgSection, { display: "flex" });
+    }
+  }
+
   #handleOpenCart(e) {
     console.log("clicked");
     console.log(this);
@@ -114,7 +131,10 @@ class UI {
       overflow: "hidden",
       backgroundColor: "rgba(157, 153, 153, 0.427)",
     });
+
     addStyle(modalContainer, { display: "flex" });
+
+    this.#displayCartProduct();
   }
 
   #handleCloseCart(e) {
@@ -526,7 +546,7 @@ class UI {
       const { cartCount } = this.#loadSelector();
       console.log("here");
       const productId = e.target.dataset.id;
-      cart.cartData = productId;
+      cart.cartData = { id: productId, count: 1 };
       cartCount.innerText = cart.cartData.length;
       storage.storeIntoStorage(cart.cartData);
       e.target.setAttribute("disabled", "disabled");
