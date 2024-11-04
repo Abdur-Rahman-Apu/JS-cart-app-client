@@ -24,78 +24,76 @@
 
 <body>
 
-    <!-- header part start  -->
-    <header>
+    <!-- navbar start  -->
+    <nav>
 
-        <!-- navbar start  -->
-        <nav>
+        <!-- navbar left side  -->
+        <div class="left-side">
+            <!-- logo  -->
+            <div class="logo">
+                <img src="./assets/logo.png" alt="This image is the logo of the application">
+                <h1>Shop<span>Buzz</span></h1>
+            </div>
 
-            <!-- navbar left side  -->
-            <div class="left-side">
-                <!-- logo  -->
-                <div class="logo">
-                    <img src="./assets/logo.png" alt="This image is the logo of the application">
-                    <h1>Shop<span>Buzz</span></h1>
-                </div>
+            <!-- menus  -->
+            <section class="menus">
 
-                <!-- menus  -->
-                <section class="menus">
+                <!-- categories menu start -->
+                <div class="categories">
+                    <p>categories</p>
+                    <i class="fas fa-chevron-down"></i>
 
-                    <!-- categories menu start -->
-                    <div class="categories">
-                        <p>categories</p>
-                        <i class="fas fa-chevron-down"></i>
-
-                        <!-- all categories list  -->
-                        <div class="categories-list">
-                            <div>
-                                <img src="./assets/categories/clothes.png" alt="This image indicates clothes category">
-                                <p>Clothes</p>
-                            </div>
-                            <div>
-                                <img src="./assets/categories/shoes.png" alt="This image indicates shoes category">
-                                <p>Shoes</p>
-                            </div>
-                            <div>
-                                <img src="./assets/categories/electronics.png"
-                                    alt="This image indicates electronics category">
-                                <p>Electronics</p>
-                            </div>
-                            <div>
-                                <img src="./assets/categories/furniture.png"
-                                    alt="This image indicates furniture category">
-                                <p>Furniture</p>
-                            </div>
+                    <!-- all categories list  -->
+                    <div class="categories-list">
+                        <div>
+                            <img src="./assets/categories/clothes.png" alt="This image indicates clothes category">
+                            <p>Clothes</p>
+                        </div>
+                        <div>
+                            <img src="./assets/categories/shoes.png" alt="This image indicates shoes category">
+                            <p>Shoes</p>
+                        </div>
+                        <div>
+                            <img src="./assets/categories/electronics.png"
+                                alt="This image indicates electronics category">
+                            <p>Electronics</p>
+                        </div>
+                        <div>
+                            <img src="./assets/categories/furniture.png" alt="This image indicates furniture category">
+                            <p>Furniture</p>
                         </div>
                     </div>
-                    <!-- categories menu end  -->
+                </div>
+                <!-- categories menu end  -->
 
-                    <p>Most Wanted</p>
-                    <p>What's New</p>
-                </section>
+                <p>Most Wanted</p>
+                <p>What's New</p>
+            </section>
+        </div>
+
+        <!-- navbar right side  -->
+        <div class="right-side">
+
+            <!-- search product  -->
+            <div class="search">
+                <i class="fas fa-search"></i>
+                <input type="search" name="search" id="search" placeholder="Search products...">
             </div>
 
-            <!-- navbar right side  -->
-            <div class="right-side">
-
-                <!-- search product  -->
-                <div class="search">
-                    <i class="fas fa-search"></i>
-                    <input type="search" name="search" id="search" placeholder="Search products...">
-                </div>
-
-                <!-- cart icon  -->
-                <div class="cart">
-                    <span class="cart-count">0</span>
-                    <i class="fas fa-shopping-cart"></i>
-                </div>
-
-                <!-- login button  -->
-                <button class="btn">Login</button>
+            <!-- cart icon  -->
+            <div class="cart">
+                <span class="cart-count">0</span>
+                <i class="fas fa-shopping-cart"></i>
             </div>
-        </nav>
-        <!-- navbar end  -->
 
+            <!-- login button  -->
+            <button class="btn">Login</button>
+        </div>
+    </nav>
+    <!-- navbar end  -->
+
+    <!-- header part start  -->
+    <header>
         <!-- banner start  -->
         <section class="banner">
             <p>Explore a world of products, <br> Crafted for you</p>

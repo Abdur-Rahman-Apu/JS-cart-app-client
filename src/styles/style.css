@@ -43,12 +43,18 @@ button:disabled:hover {
   background-color: var(--primary-light-color);
 }
 
+/* header part  */
 nav {
   width: 100%;
   height: 80px;
   display: flex;
   padding: 0 10px;
   font-family: var(--poppins-font);
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  box-shadow: 2px 2px 2px #fff;
+  z-index: 100;
 }
 
 nav > div {
@@ -78,7 +84,6 @@ nav .right-side {
 
 .menus {
   display: none;
-  /* flex-grow: 1; */
 }
 
 .right-side .search {
@@ -111,7 +116,6 @@ nav .right-side {
 }
 
 /* banner design start  */
-
 .banner {
   min-height: 300px;
   background: linear-gradient(to right, #e8e1de, #cfc4c0);
@@ -128,7 +132,6 @@ nav .right-side {
   height: 120px;
   margin-top: 50px;
   font-family: var(--poppins-font);
-  /* font-size: 2.2rem; */
   font-size: 1.4rem;
   font-weight: 600;
   text-align: center;
@@ -142,7 +145,6 @@ nav .right-side {
 }
 
 /* main part start  */
-
 main {
   padding: 10px;
 }
@@ -221,7 +223,6 @@ main {
   font-family: var(--poppins-font);
   font-weight: 500;
   background: linear-gradient(to right, #e8e1de, #e8ddd9);
-  /* padding: 15px; */
   padding: 15px 6px;
   border-radius: 5px;
 }
@@ -268,9 +269,7 @@ input[type="checkbox"] {
 .products-section {
   width: 65%;
   height: 100%;
-  /* background-color: green; */
   display: grid;
-  /* display: none; */
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-auto-rows: 300px;
   gap: 15px;
@@ -350,7 +349,6 @@ input[type="checkbox"] {
 }
 
 /* product loading card  */
-
 .product-loading {
   animation: blinkAnim 1s linear infinite;
 }
@@ -512,7 +510,6 @@ footer {
   width: 100%;
   height: 100%;
   background-color: rgba(157, 153, 153, 0.427);
-  /* display: flex; */
   display: none;
   justify-content: center;
   align-items: center;
@@ -578,7 +575,6 @@ footer {
 
 .cart-empty-message-section {
   height: 200px;
-  /* display: flex; */
   display: none;
   flex-direction: column;
   align-items: center;
@@ -599,10 +595,8 @@ footer {
 }
 
 /* cart product section  */
-
 .cart-section {
   display: flex;
-  /* display: none; */
   flex-direction: column;
   margin: 35px 0;
 }
@@ -766,7 +760,6 @@ footer {
   box-shadow: 2px 2px 2px rgb(185, 183, 183);
   opacity: 0;
   display: none;
-  /* animation: showAnim 2s linear; */
   z-index: 1000;
 }
 
