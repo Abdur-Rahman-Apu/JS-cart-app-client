@@ -369,6 +369,7 @@ class UI {
     } catch (err) {
       console.log(err);
       this.#showProductEmptySection({ toastMsg: "Failed to fetch data" });
+      this.#displayToast({ msg: "Failed to fetch product", action: "failure" });
     }
   }
 

@@ -23,18 +23,30 @@
 </head>
 
 <body>
+
+    <!-- header part start  -->
     <header>
+
+        <!-- navbar start  -->
         <nav>
+
+            <!-- navbar left side  -->
             <div class="left-side">
+                <!-- logo  -->
                 <div class="logo">
                     <img src="./assets/logo.png" alt="This image is the logo of the application">
                     <h1>Shop<span>Buzz</span></h1>
                 </div>
+
+                <!-- menus  -->
                 <section class="menus">
+
+                    <!-- categories menu start -->
                     <div class="categories">
                         <p>categories</p>
                         <i class="fas fa-chevron-down"></i>
 
+                        <!-- all categories list  -->
                         <div class="categories-list">
                             <div>
                                 <img src="./assets/categories/clothes.png" alt="This image indicates clothes category">
@@ -56,53 +68,80 @@
                             </div>
                         </div>
                     </div>
+                    <!-- categories menu end  -->
+
                     <p>Most Wanted</p>
                     <p>What's New</p>
                 </section>
             </div>
 
+            <!-- navbar right side  -->
             <div class="right-side">
+
+                <!-- search product  -->
                 <div class="search">
                     <i class="fas fa-search"></i>
                     <input type="search" name="search" id="search" placeholder="Search products...">
                 </div>
+
+                <!-- cart icon  -->
                 <div class="cart">
                     <span class="cart-count">0</span>
                     <i class="fas fa-shopping-cart"></i>
                 </div>
+
+                <!-- login button  -->
                 <button class="btn">Login</button>
             </div>
         </nav>
+        <!-- navbar end  -->
 
+        <!-- banner start  -->
         <section class="banner">
             <p>Explore a world of products, <br> Crafted for you</p>
-            <img src="./assets/banner/banner.png" alt="This image is indicating the banner">
+            <img src="./assets/banner/banner.png" alt="This image is indicating a banner">
         </section>
+        <!-- banner end  -->
     </header>
+    <!-- header part end  -->
 
+    <!-- main part start  -->
     <main>
+
+        <!-- main header part start  -->
         <div class="main-header">
+
+            <!-- categories indicator  -->
             <section class="category-indicator">
                 <i class="fas fa-home home-icon"></i>
                 <i class="fas fa-chevron-right right-arrow-icon"></i>
                 <p class="selected-category-name">Categories</p>
             </section>
+
+            <!-- sort product section  -->
             <div class="sort-by-section" data-section="sort">
                 <p data-section="sort" class="sort-by-name">Sort by price</p>
                 <i class="fas fa-caret-down" data-section="sort"></i>
 
+                <!-- sort options  -->
                 <div class="sort-by-options" data-section="sort" data-visible="false">
                     <div data-section="sort">Low to High</div>
                     <div data-section="sort">High to Low</div>
                 </div>
             </div>
         </div>
+        <!-- main header part end  -->
 
-
+        <!-- sidebar and product section start  -->
         <section class="sidebar-and-products-section">
+
+            <!-- category sidebar start  -->
             <aside class="category-sidebar">
+
+                <!-- sidebar title  -->
                 <p class="category-sidebar-title"><i class="far fa-calendar-check"></i> Categories</p>
 
+                <!-- categories checkboxes  -->
                 <div>
                     <input type="checkbox" id="clothes" name="clothes" value="Clothes">
                     <label for="clothes"> Clothes</label>
@@ -120,6 +159,9 @@
                     <label for="furniture">Furniture</label>
                 </div>
             </aside>
+            <!-- category sidebar end  -->
+
+            <!-- product section start -->
             <section class="products-section">
 
                 <!-- product loading  -->
@@ -176,40 +218,7 @@
                         <button class="btn-loading"></button>
                     </div>
                 </div>
-                <div class="product product-loading">
 
-                    <div class="product-img">
-                        <img src="./assets/product/img-placeholder.png"
-                            alt="This image is indicating a image placeholder">
-                    </div>
-                    <div class="product-description">
-
-                        <p class="product-name product-name-loading"></p>
-                        <div class="rating-and-price-section-loading">
-                            <div class="rating-loading"></div>
-                            <p class="price-loading"></p>
-                        </div>
-
-                        <button class="btn-loading"></button>
-                    </div>
-                </div>
-                <div class="product product-loading">
-
-                    <div class="product-img">
-                        <img src="./assets/product/img-placeholder.png"
-                            alt="This image is indicating a image placeholder">
-                    </div>
-                    <div class="product-description">
-
-                        <p class="product-name product-name-loading"></p>
-                        <div class="rating-and-price-section-loading">
-                            <div class="rating-loading"></div>
-                            <p class="price-loading"></p>
-                        </div>
-
-                        <button class="btn-loading"></button>
-                    </div>
-                </div>
                 <div class="product product-loading">
 
                     <div class="product-img">
@@ -228,119 +237,79 @@
                     </div>
                 </div>
 
+                <div class="product product-loading">
 
-                <!-- <div class="product">
                     <div class="product-img">
-                        <img src="./assets/banner/banner.png" alt="This image is indicating a product">
+                        <img src="./assets/product/img-placeholder.png"
+                            alt="This image is indicating a image placeholder">
                     </div>
                     <div class="product-description">
 
-                        <p class="product-name">Nova Bliss Chair</p>
-                        <div class="rating-and-price-section">
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <p>$<span class="price">277</span></p>
+                        <p class="product-name product-name-loading"></p>
+                        <div class="rating-and-price-section-loading">
+                            <div class="rating-loading"></div>
+                            <p class="price-loading"></p>
                         </div>
 
-                        <button class="add-to-cart-btn btn">Add to cart</button>
+                        <button class="btn-loading"></button>
                     </div>
                 </div>
-                <div class="product">
+
+                <div class="product product-loading">
+
                     <div class="product-img">
-                        <img src="./assets/banner/banner.png" alt="This image is indicating a product">
+                        <img src="./assets/product/img-placeholder.png"
+                            alt="This image is indicating a image placeholder">
                     </div>
                     <div class="product-description">
 
-                        <p class="product-name">Nova Bliss Chair</p>
-                        <div class="rating-and-price-section">
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <p>$<span class="price">277</span></p>
+                        <p class="product-name product-name-loading"></p>
+                        <div class="rating-and-price-section-loading">
+                            <div class="rating-loading"></div>
+                            <p class="price-loading"></p>
                         </div>
 
-                        <button class="add-to-cart-btn btn">Add to cart</button>
+                        <button class="btn-loading"></button>
                     </div>
                 </div>
-                <div class="product">
-                    <div class="product-img">
-                        <img src="./assets/banner/banner.png" alt="This image is indicating a product">
-                    </div>
-                    <div class="product-description">
-
-                        <p class="product-name">Nova Bliss Chair</p>
-                        <div class="rating-and-price-section">
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <p>$<span class="price">277</span></p>
-                        </div>
-
-                        <button class="add-to-cart-btn btn">Add to cart</button>
-                    </div>
-                </div>
-                <div class="product">
-                    <div class="product-img">
-                        <img src="./assets/banner/banner.png" alt="This image is indicating a product">
-                    </div>
-                    <div class="product-description">
-
-                        <p class="product-name">Nova Bliss Chair</p>
-                        <div class="rating-and-price-section">
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <p>$<span class="price">277</span></p>
-                        </div>
-
-                        <button class="add-to-cart-btn btn">Add to cart</button>
-                    </div>
-                </div> -->
-
-
 
             </section>
+            <!-- product section end  -->
 
+            <!-- no product section start -->
             <div class="no-product">
                 <div class="no-product-img">
-                    <img src="./assets/product/no-packing.png" alt="">
+                    <img src="./assets/product/no-packing.png" alt="This image is indicating an image placeholder">
                 </div>
                 <p class="no-product-msg">No products found</p>
             </div>
+            <!-- no product section end  -->
+
         </section>
+        <!-- sidebar and product section end  -->
 
     </main>
+    <!-- main part end  -->
 
-
+    <!-- footer part start  -->
     <footer>
+
+        <!-- footer upper section start -->
         <div class="footer-upper-section">
 
+            <!-- left side  -->
             <div class="footer-upper-section-left-side">
+                <!-- logo  -->
                 <div class="logo">
                     <img src="./assets/logo.png" alt="This image is the logo of the application">
                     <p class="title">Shop<span>Buzz</span></p>
                 </div>
 
+                <!-- subtitle  -->
                 <p class="sub-title">Transforming Home. One piece at a Time</p>
             </div>
 
+            <!-- right side  -->
             <div class="footer-upper-section-right-side">
                 <div>
                     <p class="link-label">Categories</p>
@@ -371,30 +340,41 @@
                 </div>
             </div>
         </div>
+        <!-- footer upper section end  -->
 
+        <!-- footer bottom section start  -->
         <div class="footer-bottom-section">
+
+            <!-- copyright text  -->
             <p class="copyright-text">&copy; 2025 ShopBuzz. All rights reserved.</p>
 
+            <!-- social media section  -->
             <div class="social-media">
                 <i class="fab fa-twitter"></i>
                 <i class="fab fa-linkedin"></i>
                 <i class="fab fa-facebook"></i>
             </div>
         </div>
-    </footer>
+        <!-- footer bottom section end  -->
 
+    </footer>
+    <!-- footer part end  -->
 
     <!-- cart modal  -->
     <section class="modal-section">
         <div class="modal">
+
+            <!-- modal header part start  -->
             <div class="modal-header">
                 <p class="modal-title">Cart <i class="fas fa-shopping-cart"></i></p>
                 <div class="close-icon"><i class="fas fa-times"></i></div>
-
             </div>
+            <!-- modal header part end  -->
 
+            <!-- modal body part start  -->
             <div class="modal-body">
 
+                <!-- cart steps  -->
                 <div class="cart-steps">
                     <p>1. Cart</p>
 
@@ -403,8 +383,7 @@
                     <p>3. Payment</p>
                 </div>
 
-                <!-- cart empty  -->
-
+                <!-- This section will be displayed if no products are in the cart -->
                 <div class="cart-empty-message-section">
                     <div class="cart-empty-img-section">
                         <img src="./assets/modal/empty-cart.png" alt="This image is indicating an empty cart">
@@ -412,94 +391,50 @@
                     <p class="cart-empty-message">Your cart is empty</p>
                 </div>
 
-                <!-- cart has item  -->
+                <!-- This section will be displayed if products are available  -->
                 <div class="cart-section">
-                    <div class="cart-products">
-                        <!-- <div class="cart-product">
-                            <div class="cart-product-info">
-                                <div class="cart-product-img">
-                                    <img src="./assets/banner/banner.png" alt="">
-                                </div>
-                                <div class="cart-product-description">
-                                    <p class="cart-product-name">Nova Bliss Sofa</p>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <p class="cart-product-price">$<span class="price">299</span></p>
-                                </div>
-                            </div>
-                            <div class="cart-product-action">
-                                <div class="product-quantity">
-                                    <button class="decrement">-</button>
-                                    <div class="product-quantity-amount">1</div>
-                                    <button class="increment">+</button>
-                                </div>
 
-                                <button class="delete-product">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="cart-product">
-                            <div class="cart-product-info">
-                                <div class="cart-product-img">
-                                    <img src="./assets/banner/banner.png" alt="">
-                                </div>
-                                <div class="cart-product-description">
-                                    <p class="cart-product-name">Nova Bliss Sofa</p>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <p class="cart-product-price">$<span class="price">299</span></p>
-                                </div>
-                            </div>
-                            <div class="cart-product-action">
-                                <div class="product-quantity">
-                                    <button class="decrement">-</button>
-                                    <div class="product-quantity-amount">1</div>
-                                    <button class="increment">+</button>
-                                </div>
+                    <!-- cart products section  -->
+                    <div class="cart-products"></div>
 
-                                <button class="delete-product">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
-                        </div> -->
-                    </div>
-
+                    <!-- order summary section  -->
                     <div class="order-summary">
+
+                        <!-- title  -->
                         <p class="order-summary-title">Order summary</p>
 
+                        <!-- cost  -->
                         <div class="order-calculation">
+
+                            <!-- subtotal amount -->
                             <div class="sub-total">
                                 <p>Sub Total</p>
                                 <p>$<span class="sub-total-amount">239.00</span></p>
                             </div>
+
+                            <!-- discount amount  -->
                             <div class="discount">
                                 <p>Discount</p>
                                 <p>$<span class="discount-amount">35.52</span></p>
                             </div>
+
+                            <!-- tax amount  -->
                             <div class="tax">
                                 <p>Tax</p>
                                 <p>$<span class="tax-amount">0.00</span></p>
                             </div>
+
+                            <!-- shipping type  -->
                             <div class="shipping">
                                 <p>Shipping</p>
                                 <p class="shipping-amount">Free</p>
                             </div>
+
+                            <!-- total amount  -->
                             <div class="total">
                                 <p>Total</p>
                                 <p>$<span class="total-amount">606.00</span></p>
                             </div>
-
                         </div>
 
                         <hr>
@@ -510,10 +445,12 @@
                     </div>
                 </div>
             </div>
+            <!-- modal body part end  -->
+
         </div>
     </section>
 
-    <!-- toast  -->
+    <!-- toast message section  -->
     <section class="toast-section">
         <div class="toast-message">Added to cart successfully</div>
     </section>
