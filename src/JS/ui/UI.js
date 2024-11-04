@@ -196,6 +196,7 @@ class UI {
       const cartProducts = this.#getCartProductsDetails();
 
       this.#showCartProductsInUI(cartProducts);
+      this.#calculateAndDisplayCartProductPrice();
     } else {
       addStyle(cartModalContainer, { display: "none" });
       addStyle(cartEmptyMsgSection, { display: "flex" });
@@ -635,6 +636,30 @@ class UI {
     }
   }
 
+  #calculateAndDisplayCartProductPrice() {
+    const subTotalAmount = selectElm(".sub-total-amount");
+    const totalAmount = selectElm(".total-amount");
+
+    let subTotalCost = 0;
+    let totalCost = 0;
+
+    const cartProducts = this.#getCartProductsDetails();
+
+    cartProducts.forEach((product) => {
+      const cartProductDetails = cart.cartData.find(
+        (item) => product.id === item.id
+      );
+      const productAmount = cartProductDetails.count;
+      subTotalCost =
+        subTotalCost + Number(product.price) * Number(productAmount);
+    });
+
+    totalCost = subTotalCost + 35.52;
+
+    subTotalAmount.innerText = subTotalCost;
+    totalAmount.innerText = totalCost;
+  }
+
   #incrementOrDecrementCartProductItem({ productId, action }) {
     const itemAmount = selectElm(`.product-quantity-${productId}`);
     const newCartData = cart.cartData.map((cartProduct) => {
@@ -656,6 +681,8 @@ class UI {
     console.log(newCartData, "new Cart data");
     cart.cartData = newCartData;
     storage.storeIntoStorage(cart.cartData);
+
+    this.#calculateAndDisplayCartProductPrice();
   }
 
   #deleteCartProduct(productId) {}
