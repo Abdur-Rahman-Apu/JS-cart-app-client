@@ -1,11 +1,16 @@
 import { cart } from "../../cart/Cart";
 
+// checking product is available or not into the cart
 const isExistIntoCart = (id) => {
+  // find index of the existing product
   const isFind = cart.cartData.findIndex((product) => product.id === id);
   console.log(isFind, "isFind");
+
+  // if product is find, then return true otherwise return false
   return isFind !== -1 ? true : false;
 };
 
+// disable add to cart button when product is present into the cart
 export default function productCard(product) {
   return `<div class="product">
       <div class="product-img">
