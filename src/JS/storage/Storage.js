@@ -6,6 +6,10 @@ class Storage {
   getFromTheStorage() {
     return JSON.parse(localStorage.getItem("shop-buzz-cart"));
   }
+
+  removeFromTheLocalStorage() {
+    localStorage.removeItem("shop-buzz-cart");
+  }
 }
 
 const storage = new Storage();

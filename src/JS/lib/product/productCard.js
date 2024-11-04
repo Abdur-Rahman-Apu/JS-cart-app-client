@@ -29,7 +29,9 @@ export default function productCard(product) {
           </p>
         </div>
 
-        <button class="add-to-cart-btn btn" data-id="${product?.id}" 
+        <button class="add-to-cart-btn btn add-to-cart-btn-${
+          product?.id
+        }" data-id="${product?.id}" 
         ${
           cart.cartData.length > 0
             ? isExistIntoCart(product?.id.toString()) && (disabled = "disabled")

@@ -8,7 +8,6 @@ import { storage } from "../storage/Storage";
 import { baseUrl } from "../utils/config";
 import {
   addStyle,
-  insertAdjHtml,
   listenEvent,
   selectElm,
   selectMultiElm,
@@ -139,7 +138,7 @@ class UI {
           <button class="decrement" data-id=${
             product.id
           } data-action="decrement" ${
-      cartProductInfo?.count === 1 ? (disabled = "disabled") : null
+      cartProductInfo?.count === 1 ? `disabled = "disabled"` : ""
     }>-</button>
           <div class="product-quantity-amount product-quantity-${product.id}">${
       cartProductInfo?.count
@@ -166,7 +165,7 @@ class UI {
       .map((product) => this.#cartProductCardHTML(product))
       .join("");
 
-    insertAdjHtml(cartProductContainer, productHTML);
+    cartProductContainer.innerHTML = productHTML;
   }
 
   #getCartProductsDetails() {
@@ -679,12 +678,16 @@ class UI {
         itemAmount.innerText = cartProduct.count;
 
         if (cartProduct.count < 2) {
-          itemAmount.previousElementSibling.setAttribute(disabled, "disabled");
+          itemAmount.previousElementSibling.setAttribute(
+            "disabled",
+            "disabled"
+          );
         } else {
-          itemAmount.previousElementSibling.removeAttribute(disabled);
+          itemAmount.previousElementSibling.removeAttribute("disabled");
         }
         return cartProduct;
       }
+      return cartProduct;
     });
 
     cart.cartDataEmpty = [];
@@ -695,12 +698,37 @@ class UI {
     this.#calculateAndDisplayCartProductPrice();
   }
 
-  #deleteCartProduct(productId) {}
+  #deleteCartProduct(productId) {
+    const { cartCount } = this.#loadSelector();
+
+    console.log(`.add-to-cart-btn-${+productId}`);
+    const addToCartBtn = selectElm(`.add-to-cart-btn-${+productId}`);
+
+    console.log(addToCartBtn, "add to cart delete");
+
+    const filterCartData = cart.cartData.filter(
+      (item) => item.id !== productId
+    );
+
+    console.log(filterCartData, "filtered cart delete");
+    cart.cartDataEmpty = [];
+    cart.cartData = filterCartData;
+    storage.storeIntoStorage(cart.cartData);
+
+    cartCount.innerText = cart.cartData.length;
+
+    addToCartBtn.removeAttribute("disabled");
+
+    this.#displayCartProduct();
+  }
 
   #handleCartProductAction(e) {
     console.log("clicked");
     console.log(e.target);
-    if (e.target.tagName.toLowerCase() === "button") {
+    if (
+      e.target.tagName.toLowerCase() === "button" ||
+      e.target.tagName.toLowerCase() === "i"
+    ) {
       const productId = e.target.dataset.id;
       const action = e.target.dataset.action;
       console.log(productId, action);
@@ -710,6 +738,8 @@ class UI {
       }
 
       if (action === "delete") {
+        console.log("came here");
+
         this.#deleteCartProduct(productId);
       }
     }
