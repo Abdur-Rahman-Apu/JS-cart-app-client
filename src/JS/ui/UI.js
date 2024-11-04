@@ -185,6 +185,14 @@ class UI {
     return filteredCartProducts;
   }
 
+  #displayDeliveryTime() {
+    const deliveryTimeElm = selectElm(".delivery-time");
+    const date = new Date();
+    const utcDateFormat = date.toUTCString();
+    const desiredFormat = utcDateFormat.slice(0, 16);
+    deliveryTimeElm.innerText = desiredFormat;
+  }
+
   #displayCartProduct() {
     const { cartEmptyMsgSection, cartModalContainer } = this.#loadSelector();
     const cartData = cart.cartData;
@@ -197,6 +205,7 @@ class UI {
 
       this.#showCartProductsInUI(cartProducts);
       this.#calculateAndDisplayCartProductPrice();
+      this.#displayDeliveryTime();
     } else {
       addStyle(cartModalContainer, { display: "none" });
       addStyle(cartEmptyMsgSection, { display: "flex" });
@@ -650,6 +659,7 @@ class UI {
         (item) => product.id === item.id
       );
       const productAmount = cartProductDetails.count;
+
       subTotalCost =
         subTotalCost + Number(product.price) * Number(productAmount);
     });
