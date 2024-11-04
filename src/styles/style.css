@@ -979,6 +979,11 @@ footer {
     cursor: pointer;
   }
 
+  .categories i {
+    padding-top: 2px;
+    font-size: 0.8rem;
+  }
+
   .categories-list {
     position: absolute;
     top: 100%;

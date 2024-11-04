@@ -81,6 +81,10 @@ class UI {
   #handleOpenCategories(e) {
     console.log("hover");
     const { categoriesList } = this.#loadSelector();
+    const arrowIcon = selectElm(".categories i");
+
+    arrowIcon.classList.remove("fa-chevron-down");
+    arrowIcon.classList.add("fa-chevron-up");
 
     addStyle(categoriesList, {
       height: "auto",
@@ -92,6 +96,10 @@ class UI {
   #handleCloseCategories(e) {
     console.log("close");
     const { categoriesList } = this.#loadSelector();
+    const arrowIcon = selectElm(".categories i");
+
+    arrowIcon.classList.add("fa-chevron-down");
+    arrowIcon.classList.remove("fa-chevron-up");
 
     addStyle(categoriesList, {
       height: "0",
