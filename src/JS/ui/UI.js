@@ -66,11 +66,15 @@ class UI {
 
   #handleBodyClicked(e) {
     const { sortByOptions, sortBySection } = this.#loadSelector();
+
     const isSortSection = e.target.dataset.section === "sort";
 
     if (!isSortSection) {
+      const arrowIcon = selectElm(".sort-by-section i");
       addStyle(sortByOptions, { display: "none" });
       sortBySection.dataset.visible = false;
+      arrowIcon.classList.remove("fa-caret-up");
+      arrowIcon.classList.add("fa-caret-down");
     }
   }
 
@@ -98,14 +102,18 @@ class UI {
 
   #handleOpenSortOptions() {
     const { sortByOptions, sortBySection } = this.#loadSelector();
-
+    const arrowIcon = selectElm(".sort-by-section i");
     console.log(sortBySection.dataset);
     if (sortBySection.dataset.visible === "true") {
       addStyle(sortByOptions, { display: "none" });
       sortBySection.dataset.visible = false;
+      arrowIcon.classList.remove("fa-caret-up");
+      arrowIcon.classList.add("fa-caret-down");
     } else {
       addStyle(sortByOptions, { display: "block" });
       sortBySection.dataset.visible = true;
+      arrowIcon.classList.add("fa-caret-up");
+      arrowIcon.classList.remove("fa-caret-down");
     }
   }
 
@@ -372,6 +380,7 @@ class UI {
 
   #handleSortProducts(e) {
     const { sortByName } = this.#loadSelector();
+
     console.log(e.target.innerText);
     const targetedWay = e.target.innerText;
     console.log(targetedWay, "targeted way");
