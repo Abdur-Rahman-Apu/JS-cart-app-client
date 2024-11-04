@@ -753,7 +753,7 @@ footer {
 
 /* toast style part  */
 .toast-section {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 5%;
   transform: translateX(-50%);
@@ -767,6 +767,7 @@ footer {
   opacity: 0;
   display: none;
   /* animation: showAnim 2s linear; */
+  z-index: 1000;
 }
 
 @keyframes showAnim {
@@ -792,6 +793,28 @@ footer {
   }
 }
 
+@keyframes showModal {
+  0% {
+    display: none;
+    transform: translateY(-100%);
+  }
+  100% {
+    display: flex;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes closeModal {
+  0% {
+    display: flex;
+    transform: translateX(0);
+  }
+
+  100% {
+    display: none;
+    transform: translateX(100%);
+  }
+}
 @media (min-width: 480px) {
   .banner p {
     font-size: 1.6rem;

@@ -7,10 +7,10 @@ export default function showToast({ action, msg }) {
 
   const style =
     action === "success"
-      ? { backgroundColor: "#05c46b" }
-      : { backgroundColor: "#f53b57", color: "#fff" };
+      ? { backgroundColor: "#05c46b", display: "block" }
+      : { backgroundColor: "#f53b57", color: "#fff", display: "block" };
 
-  style.animation = "showAnim 2s linear";
+  style.animation = "showAnim 2s ease-in-out";
 
   addStyle(toastContainer, style);
 }

@@ -223,19 +223,29 @@ class UI {
       backgroundColor: "rgba(157, 153, 153, 0.427)",
     });
 
-    addStyle(modalContainer, { display: "flex" });
+    addStyle(modalContainer, {
+      display: "flex",
+      animation: "showModal 1s ease-out",
+    });
 
     this.#displayCartProduct();
   }
 
   #handleCloseCart(e) {
     const { body, modalContainer } = this.#loadSelector();
-    addStyle(body, {
-      height: "auto",
-      overflow: "auto",
-      backgroundColor: "#fff",
+
+    addStyle(modalContainer, {
+      display: "none",
+      animation: "closeModal 1s ease-in",
     });
-    addStyle(modalContainer, { display: "none" });
+
+    setTimeout(() => {
+      addStyle(body, {
+        height: "auto",
+        overflow: "auto",
+        backgroundColor: "#fff",
+      });
+    }, 1100);
   }
 
   #displayEmptyProduct() {
@@ -245,7 +255,9 @@ class UI {
 
   #displayToast(data) {
     showToast(data);
-    hideToast();
+    setTimeout(() => {
+      hideToast();
+    }, 2000);
   }
 
   #hideLoading() {
@@ -641,6 +653,10 @@ class UI {
       cartCount.innerText = cart.cartData.length;
       storage.storeIntoStorage(cart.cartData);
       e.target.setAttribute("disabled", "disabled");
+      this.#displayToast({
+        msg: "Added to cart successfully",
+        action: "success",
+      });
     }
   }
 
@@ -718,6 +734,8 @@ class UI {
     cartCount.innerText = cart.cartData.length;
 
     addToCartBtn.removeAttribute("disabled");
+
+    this.#displayToast({ msg: "Deleted successfully", action: "failure" });
 
     this.#displayCartProduct();
   }
