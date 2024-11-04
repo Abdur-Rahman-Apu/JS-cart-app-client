@@ -7,6 +7,10 @@ class Cart {
       : [...this.#cartData, data];
   }
 
+  set cartDataEmpty(data) {
+    this.#cartData = data;
+  }
+
   get cartData() {
     return this.#cartData;
   }

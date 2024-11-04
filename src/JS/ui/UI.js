@@ -8,6 +8,7 @@ import { storage } from "../storage/Storage";
 import { baseUrl } from "../utils/config";
 import {
   addStyle,
+  insertAdjHtml,
   listenEvent,
   selectElm,
   selectMultiElm,
@@ -35,7 +36,8 @@ class UI {
     const productContainer = selectElm(".products-section");
     const loadingProductCards = selectMultiElm(".product-loading");
     const cartEmptyMsgSection = selectElm(".cart-empty-message-section");
-    const cartProductSection = selectElm(".cart-section");
+    const cartModalContainer = selectElm(".cart-section");
+    const cartProductContainer = selectElm(".cart-products");
 
     return {
       body,
@@ -58,7 +60,8 @@ class UI {
       furnitureCheckBox,
       cartCount,
       cartEmptyMsgSection,
-      cartProductSection,
+      cartModalContainer,
+      cartProductContainer,
     };
   }
 
@@ -107,22 +110,101 @@ class UI {
     }
   }
 
+  #cartProductCardHTML(product) {
+    const cartProductInfo = cart.cartData.find(
+      (item) => item.id === product.id
+    );
+
+    return `<div class="cart-product">
+      <div class="cart-product-info">
+        <div class="cart-product-img">
+          <img src="${product.pic}" alt="" />
+        </div>
+        <div class="cart-product-description">
+          <p class="cart-product-name">${product.name}</p>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <p class="cart-product-price">
+            $<span class="price">${product.price}</span>
+          </p>
+        </div>
+      </div>
+      <div class="cart-product-action">
+        <div class="product-quantity">
+          <button class="decrement" data-id=${
+            product.id
+          } data-action="decrement" ${
+      cartProductInfo?.count === 1 ? (disabled = "disabled") : null
+    }>-</button>
+          <div class="product-quantity-amount product-quantity-${product.id}">${
+      cartProductInfo?.count
+    }</div>
+          <button class="increment" data-id=${
+            product.id
+          } data-action="increment">+</button>
+        </div>
+
+        <button class="delete-product" data-id=${
+          product.id
+        } data-action="delete">
+          <i class="fas fa-trash-alt" data-id=${
+            product.id
+          } data-action="delete"></i>
+        </button>
+      </div>
+    </div>`;
+  }
+
+  #showCartProductsInUI(cartProducts) {
+    const { cartProductContainer } = this.#loadSelector();
+    const productHTML = cartProducts
+      .map((product) => this.#cartProductCardHTML(product))
+      .join("");
+
+    insertAdjHtml(cartProductContainer, productHTML);
+  }
+
+  #getCartProductsDetails() {
+    const allProducts = this.#getAllProducts(data.allProducts);
+    const cartData = cart.cartData;
+    console.log(allProducts);
+    console.log(cartData);
+    const filteredCartProducts = allProducts.filter((product) => {
+      const findCartProduct = cartData.find(
+        (cartItem) => cartItem.id === product.id
+      );
+
+      if (findCartProduct) return product;
+    });
+    console.log(filteredCartProducts);
+    return filteredCartProducts;
+  }
+
   #displayCartProduct() {
-    const { cartEmptyMsgSection, cartProductSection } = this.#loadSelector();
+    const { cartEmptyMsgSection, cartModalContainer } = this.#loadSelector();
     const cartData = cart.cartData;
 
     if (cartData.length) {
       addStyle(cartEmptyMsgSection, { display: "none" });
-      addStyle(cartProductSection, { display: "flex" });
+      addStyle(cartModalContainer, { display: "flex" });
+
+      const cartProducts = this.#getCartProductsDetails();
+
+      this.#showCartProductsInUI(cartProducts);
     } else {
-      addStyle(cartProductSection, { display: "none" });
+      addStyle(cartModalContainer, { display: "none" });
       addStyle(cartEmptyMsgSection, { display: "flex" });
     }
   }
 
   #handleOpenCart(e) {
     console.log("clicked");
-    console.log(this);
+
     const { body, modalContainer } = this.#loadSelector();
 
     // open cart modal
@@ -239,7 +321,7 @@ class UI {
           categoriesInTheUrl.forEach((category) =>
             this.#toggleCategoryChecked({ category, action: "add" })
           );
-          this.#DisplayCategoryWiseProducts(categoriesInTheUrl);
+          this.#displayCategoryWiseProducts(categoriesInTheUrl);
         } else {
           data.displayProducts = this.#getAllProducts(receiveData);
           this.#displayProductsIntoTheUI();
@@ -325,7 +407,7 @@ class UI {
     }
   }
 
-  #DisplayCategoryWiseProducts(categoryNames) {
+  #displayCategoryWiseProducts(categoryNames) {
     console.log(categoryNames, "category names");
     const allProducts = data.allProducts;
 
@@ -350,9 +432,9 @@ class UI {
 
   #handleDisplayCategoryWiseProduct({ category, type }) {
     if (type === "single") {
-      this.#DisplayCategoryWiseProducts([category]);
+      this.#displayCategoryWiseProducts([category]);
     } else {
-      this.#DisplayCategoryWiseProducts(category.split("-"));
+      this.#displayCategoryWiseProducts(category.split("-"));
     }
   }
 
@@ -417,10 +499,10 @@ class UI {
 
         if (Array.isArray(newQueryValues) && newQueryValues.length) {
           url.searchParams.set("query", newQueryValues.join("-"));
-          this.#DisplayCategoryWiseProducts(newQueryValues);
+          this.#displayCategoryWiseProducts(newQueryValues);
         } else if (!Array.isArray(newQueryValues) && newQueryValues.length) {
           url.searchParams.set("query", newQueryValues);
-          this.#DisplayCategoryWiseProducts([newQueryValues]);
+          this.#displayCategoryWiseProducts([newQueryValues]);
         }
       }
 
@@ -553,6 +635,49 @@ class UI {
     }
   }
 
+  #incrementOrDecrementCartProductItem({ productId, action }) {
+    const itemAmount = selectElm(`.product-quantity-${productId}`);
+    const newCartData = cart.cartData.map((cartProduct) => {
+      if (cartProduct.id === productId) {
+        action === "increment" ? cartProduct.count++ : cartProduct.count--;
+
+        itemAmount.innerText = cartProduct.count;
+
+        if (cartProduct.count < 2) {
+          itemAmount.previousElementSibling.setAttribute(disabled, "disabled");
+        } else {
+          itemAmount.previousElementSibling.removeAttribute(disabled);
+        }
+        return cartProduct;
+      }
+    });
+
+    cart.cartDataEmpty = [];
+    console.log(newCartData, "new Cart data");
+    cart.cartData = newCartData;
+    storage.storeIntoStorage(cart.cartData);
+  }
+
+  #deleteCartProduct(productId) {}
+
+  #handleCartProductAction(e) {
+    console.log("clicked");
+    console.log(e.target);
+    if (e.target.tagName.toLowerCase() === "button") {
+      const productId = e.target.dataset.id;
+      const action = e.target.dataset.action;
+      console.log(productId, action);
+
+      if (action === "increment" || action === "decrement") {
+        this.#incrementOrDecrementCartProductItem({ productId, action });
+      }
+
+      if (action === "delete") {
+        this.#deleteCartProduct(productId);
+      }
+    }
+  }
+
   init() {
     listenEvent(
       document,
@@ -571,6 +696,7 @@ class UI {
       categorySidebar,
       categoriesList,
       productContainer,
+      cartProductContainer,
     } = this.#loadSelector();
 
     listenEvent(body, "click", this.#handleBodyClicked.bind(this));
@@ -607,6 +733,12 @@ class UI {
     listenEvent(sortByOptions, "click", this.#handleSortProducts.bind(this));
 
     listenEvent(productContainer, "click", this.#handleAddToCart.bind(this));
+
+    listenEvent(
+      cartProductContainer,
+      "click",
+      this.#handleCartProductAction.bind(this)
+    );
   }
 }
 

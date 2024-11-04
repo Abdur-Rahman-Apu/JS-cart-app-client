@@ -7,11 +7,6 @@ const isExistIntoCart = (id) => {
 };
 
 export default function productCard(product) {
-  console.log(cart.cartData);
-  console.log(product?.id);
-  const cartData = cart.cartData;
-  console.log(cartData);
-  console.log(product?.id);
   return `<div class="product">
       <div class="product-img">
         <img
