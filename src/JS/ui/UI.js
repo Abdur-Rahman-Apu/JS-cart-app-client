@@ -636,7 +636,9 @@ class UI {
   // display estimated delivery time
   #displayDeliveryTime() {
     const deliveryTimeElm = selectElm(".delivery-time");
-    const date = new Date();
+    const today = new Date();
+    const date = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+
     const utcDateFormat = date.toUTCString();
 
     // desired format is Mon, 04 Nov, 2024
@@ -727,15 +729,15 @@ class UI {
   #handleOpenCart() {
     const { body, modalContainer } = this.#loadSelector();
 
+    // scroll to top
+    window.scrollTo(0, 0);
+
     // style body tag
     addStyle(body, {
       height: "100vh",
       overflow: "hidden",
       backgroundColor: "rgba(157, 153, 153, 0.427)",
     });
-
-    // scroll to top
-    window.scrollTo(0, 0);
 
     // open the cart modal
     addStyle(modalContainer, {
