@@ -734,6 +734,9 @@ class UI {
       backgroundColor: "rgba(157, 153, 153, 0.427)",
     });
 
+    // scroll to top
+    window.scrollTo(0, 0);
+
     // open the cart modal
     addStyle(modalContainer, {
       display: "flex",
