@@ -1,6 +1,7 @@
 class ProductStore {
   #allProducts;
   #displayProducts;
+  #searchProducts;
 
   set allProducts(data) {
     this.#allProducts = data;
@@ -16,6 +17,14 @@ class ProductStore {
 
   get displayProducts() {
     return this.#displayProducts;
+  }
+
+  set searchProducts(data) {
+    this.#searchProducts = data;
+  }
+
+  get searchProducts() {
+    return this.#searchProducts;
   }
 }
 

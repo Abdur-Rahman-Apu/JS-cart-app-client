@@ -424,28 +424,49 @@ class UI {
     }
   }
 
+  // check category, if exist then display category wise product otherwise display all categories
+
+  #checkCategoryAndDisplayProducts() {
+    const categories = this.#getCategoryQueryParams();
+
+    if (categories) {
+      this.#displayCategoryWiseProducts(categories?.split("-"));
+    } else {
+      // update data state
+      data.displayProducts = this.#getAllProducts(data.allProducts);
+      console.log(data.displayProducts);
+      // is search value is empty then display all products
+      this.#displayProductsIntoTheUI();
+    }
+  }
+
   // handler of searching product
   #handleSearchProduct(e) {
+    this.#checkCategoryAndDisplayProducts();
     const searchValue = e.target.value;
+
+    // display product section and hide no product section
+    const { productContainer, noProductSection } = this.#loadSelector();
+    addStyle(productContainer, { display: "grid" });
+    addStyle(noProductSection, { display: "none" });
+
+    console.log(searchValue, "search value");
 
     if (searchValue) {
       // if search value is present
-
-      // display product section and hide no product section
-      const { productContainer, noProductSection } = this.#loadSelector();
-      addStyle(productContainer, { display: "grid" });
-      addStyle(noProductSection, { display: "none" });
 
       // filter products based on the search value
       const filteredProducts = this.#filteredSearchProducts(
         searchValue?.toLowerCase()
       );
 
+      // update data state
+      data.displayProducts = filteredProducts;
+
       // display search products
       this.#displaySearchProductsIntoUI(filteredProducts);
     } else {
-      // is search value is empty then display all products
-      this.#displayProductsIntoTheUI();
+      this.#checkCategoryAndDisplayProducts();
     }
   }
 
