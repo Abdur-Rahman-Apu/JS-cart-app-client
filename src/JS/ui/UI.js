@@ -434,7 +434,7 @@ class UI {
     } else {
       // update data state
       data.displayProducts = this.#getAllProducts(data.allProducts);
-      console.log(data.displayProducts);
+
       // is search value is empty then display all products
       this.#displayProductsIntoTheUI();
     }
@@ -449,8 +449,6 @@ class UI {
     const { productContainer, noProductSection } = this.#loadSelector();
     addStyle(productContainer, { display: "grid" });
     addStyle(noProductSection, { display: "none" });
-
-    console.log(searchValue, "search value");
 
     if (searchValue) {
       // if search value is present
