@@ -4,7 +4,6 @@ import { cart } from "../../cart/Cart";
 const isExistIntoCart = (id) => {
   // find index of the existing product
   const isFind = cart.cartData.findIndex((product) => product.id === id);
-  console.log(isFind, "isFind");
 
   // if product is find, then return true otherwise return false
   return isFind !== -1 ? true : false;

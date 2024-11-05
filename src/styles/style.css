@@ -752,6 +752,7 @@ footer {
   left: 50%;
   top: 5%;
   transform: translateX(-50%);
+  text-align: center;
   background-color: #05c46b;
   padding: 15px;
   border-radius: 5px;
